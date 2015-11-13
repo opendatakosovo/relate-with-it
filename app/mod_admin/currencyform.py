@@ -3,7 +3,7 @@ from wtforms import Form, StringField, TextAreaField, DecimalField
 class CurrencyForm(Form):
     name = StringField('Name')
     description = TextAreaField('Description')
-    exchange_rate_ks = DecimalField('Kosovo')
-    exchange_rate_me = DecimalField('Montenegro')
-    exchange_rate_rs = DecimalField('Serbia')
+    value_ks = DecimalField('Kosovo')
+    value_me = DecimalField('Montenegro')
+    value_rs = DecimalField('Serbia')
 

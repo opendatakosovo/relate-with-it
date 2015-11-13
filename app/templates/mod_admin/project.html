@@ -1,3 +1,44 @@
 {% extends "admin_layout.html" %}
 {% block body %}
+    <div class="container">
+        <div class="row">
+            <form action="{{ url_for('admin.project') }}" method="POST" class="form-horizontal">
+                <div class="form-group">
+                    {{ form.name.label(class="control-label col-xs-5") }}
+                    <div class="col-xs-7">
+                         {{ form.name(class='form-control') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.description.label(class="control-label col-xs-5") }}
+                    <div class="col-xs-7">
+                         {{ form.description(class='form-control') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.cost.label(class="control-label col-xs-5") }}
+                    <div class="col-xs-7">
+                         {{ form.cost(class='form-control') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.source_type.label(class="control-label col-xs-5") }}
+                    <div class="col-xs-7">
+                         {{ form.source_type(class='form-control') }}
+                    </div>
+                </div>
+                <div class="form-group" style="display:none;">
+                    {{ form.source_ref.label(class="control-label col-xs-5") }}
+                    <div class="col-xs-7">
+                         {{ form.source_ref(class='form-control') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-5 col-xs-7">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

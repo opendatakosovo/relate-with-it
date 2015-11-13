@@ -24,7 +24,11 @@ def project():
         doc = {
             'name': form.name.data,
             'description': form.description.data,
-            'cost': 100000,
+            'cost': float(form.cost.data),
+            'source': {
+                'type': form.source_type.data,
+                'reference': form.source_ref.data
+            },
             'imageUrl': ''
         }
         mongo_utils.save_project(doc)
@@ -43,10 +47,10 @@ def currency():
         doc = {
             'name': form.name.data,
             'description': form.description.data,
-            'exchangeRate': {
-                'kosovo': float(form.exchange_rate_ks.data),
-                'montenegro': float(form.exchange_rate_me.data),
-                'serbia': float(form.exchange_rate_rs.data),
+            'values': {
+                'kosovo': float(form.value_ks.data),
+                'montenegro': float(form.value_me.data),
+                'serbia': float(form.value_rs.data),
             },
             'imageUrl': ''
         }

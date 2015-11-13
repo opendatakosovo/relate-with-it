@@ -1,5 +1,11 @@
 {% extends "admin_layout.html" %}
 {% block body %}
+<script>
+    $( document ).ready(function() {
+        $('#projects-table').DataTable();
+        $('#currencies-table').DataTable();
+    });
+</script>
 
 <div class="container-fluid">
 	<div class="row">
@@ -7,50 +13,98 @@
             <div class="jumbotron">
                 <h1>Hello, Administrator!</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <p>
-                    <form action="{{ url_for('admin.project') }}" method="GET" >
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <span class="glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;&nbsp;New Project
-                        </button>
-                    </form>
+                <br>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="pull-right">
+                            <form action="{{ url_for('admin.project') }}" method="GET" >
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <span class="glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;&nbsp;New Project
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 pull-left">
+                        <div class="pull-left">
+                            <form action="{{ url_for('admin.currency') }}" method="GET" >
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>&nbsp;&nbsp;New Currency
+                                </button>
+                            </form>
+                        </div>
+                    </div>
 
-                    <form action="{{ url_for('admin.currency') }}" method="GET" >
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>&nbsp;&nbsp;New Currency
-                        </button>
-                    </form>
-                </p>
+                </div>
             </div>
 		</div>
 	</div>
+</div>
+
+<div class="container-fluid">
     <div class="row">
 		<div class="col-md-12">
-            <table id="example" class="display" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Kosovo</th>
-                        <th>Montenegro</th>
-                        <th>Serbia</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for currency in currencies %}
-                    <tr>
-                        <td>{{ currency.name }}</td>
-                        <td>{{ currency.description }}</td>
-                        <td>{{ currency.exchangeRate.kosovo }}</td>
-                        <td>{{ currency.exchangeRate.montenegro }}</td>
-                        <td>{{ currency.exchangeRate.serbia }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Projects</h3>
+                </div>
+                <div class="panel-body">
+                    <table id="projects-table" class="display" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Cost</th>
+                                <th>Source Type</th>
+                            </tr>
+                        </thead>
 
-            {% for project in projects %}
-                {{ project.name }}
-            {% endfor %}
+                        <tbody>
+                            {% for project in projects %}
+                            <tr>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.description }}</td>
+                                <td>{{ project.cost }}</td>
+                                <td>{{ project.source.type }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+		<div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Currencies</h3>
+                </div>
+                <div class="panel-body">
+                    <table id="currencies-table" class="display" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Kosovo</th>
+                                <th>Montenegro</th>
+                                <th>Serbia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for currency in currencies %}
+                            <tr>
+                                <td>{{ currency.name }}</td>
+                                <td>{{ currency.description }}</td>
+                                <td>{{ currency['values']['kosovo'] }}</td>
+                                <td>{{ currency['values']['montenegro'] }}</td>
+                                <td>{{ currency['values']['serbia'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 		</div>
 	</div>
 </div>
