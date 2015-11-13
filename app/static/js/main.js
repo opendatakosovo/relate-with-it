@@ -44,7 +44,13 @@
 		this.el = el;
 		this.options = extend( {}, this.options );
 		extend( this.options, options );
-		this.items = [].slice.call(this.el.children);
+		if(this.el != null){
+			this.items = [].slice.call(this.el.children);
+		}
+		else{
+			this.items = [];
+		}
+
 		this.itemsTotal = this.items.length;
 		if( this.options.infinite && this.options.visible >= this.itemsTotal || !this.options.infinite && this.options.visible > this.itemsTotal || this.options.visible <=0 ) {
 			this.options.visible = 1;
@@ -107,8 +113,11 @@
 	Stack.prototype._init = function() {
 		// set default styles
 		// first, the stack
-		this.el.style.WebkitPerspective = this.el.style.perspective = this.options.perspective + 'px';
+		if(this.el != null){
+			this.el.style.WebkitPerspective = this.el.style.perspective = this.options.perspective + 'px';
 		this.el.style.WebkitPerspectiveOrigin = this.el.style.perspectiveOrigin = this.options.perspectiveOrigin;
+
+		}
 
 		var self = this;
 
@@ -240,3 +249,4 @@
 	window.Stack = Stack;
 
 })(window);
+

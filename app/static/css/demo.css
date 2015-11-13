@@ -171,7 +171,7 @@ button:focus {
 }
 
 .color-0 { background: #3f51b5; }
-.color-1 { background: #5cc2f1; }
+.color-1 { background: #fff; }
 .color-2 { background: #fff59d; }
 .color-3 { background: #9993c1; }
 .color-4 { background: #e88a63; }
@@ -239,4 +239,26 @@ button:focus {
 	.content--related {
 		font-size: 0.9em;
 	}
+}
+
+<!--Grid Stack-->
+
+	section {
+	padding: 3em 2em;
+	text-align: center;
+}
+
+section:nth-child(odd){
+	background: rgba(0,0,0,0.08);
+}
+
+button:hover,
+button:active {
+	border: 2px solid #4b5f5a;
+	color: #4b5f5a;
+	outline: none;
+}
+
+button:focus {
+	outline: none;
 }
