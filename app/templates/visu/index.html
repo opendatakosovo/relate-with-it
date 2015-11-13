@@ -21,7 +21,7 @@
                 padding:10px;
                 float:left;
                 width:350px;
-                height:350px;
+                height:550px;
             }
             
             text    {
@@ -34,10 +34,12 @@
             
             .iconPlain  {
                 fill:white;   
+                opacity: 0.01;
             }
             
             .iconSelected  {
                 fill:orange;   
+                opacity: 1;
             }
             
             rect    {
@@ -49,6 +51,7 @@
     </head>
  
     <body>
+
  
         <script>
             
@@ -56,7 +59,7 @@
             d3.select("body").append("div").attr("id","sliderDiv");
             
             //create svg element
-            var svgDoc=d3.select("body").append("svg").attr("viewBox","0 0 100 100");
+            var svgDoc=d3.select("body").append("svg").attr("viewBox","0 0 100 150");
             
              //define an icon store it in svg <defs> elements as a reusable component - this geometry can be generated from Inkscape, Illustrator or similar
             svgDoc.append("defs")
@@ -67,11 +70,11 @@
             
             
             //background rectangle
-            svgDoc.append("rect").attr("width",100).attr("height",100);
+            svgDoc.append("rect").attr("width",100).attr("height",150);
             
             //specify the number of columns and rows for pictogram layout
-            var numCols = 10;
-            var numRows = 7;
+            var numCols = 3;
+            var numRows = 15;
             
             //padding for the grid
             var xPadding = 10;
@@ -121,8 +124,12 @@
                   value: 0,
                   slide: function( event, ui ) {
                     d3.select("#txtValue").text(ui.value);
+                    var total = d3.selectAll("use")[0].length - 1; //array indexes: 0 to length -1
+
+
                     d3.selectAll("use").attr("class",function(d,i){
-                       if (d<ui.value)  {
+                       //45 -10 
+                       if ( (total - d)  < ui.value)  {
                            return "iconSelected";
                        }    else    {
                            return "iconPlain";
@@ -132,5 +139,6 @@
              });
             
         </script>
+        <p>Based on <a href="http://bl.ocks.org/alansmithy/d832fc03f6e6a91e99f4">pictogram grid</a></p>
     </body>
 </html>
