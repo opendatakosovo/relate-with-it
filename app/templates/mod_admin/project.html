@@ -1,8 +1,29 @@
 {% extends "admin_layout.html" %}
 {% block body %}
+    <script>
+    $( document ).ready(function() {
+
+        $( "#source_type" ).change(function() {
+            if($( "#source_type" ).val() === 'Link'){
+                $('.source-ref-container').css('visibility','visible');
+            }else{
+                $('#source_ref').val('');
+                $('.source-ref-container').css('visibility','hidden');
+            }
+        });
+
+    });
+    </script>
+
     <div class="container">
         <div class="row">
             <form action="{{ url_for('admin.project') }}" method="POST" class="form-horizontal">
+                <div class="form-group">
+                    {{ form.region.label(class="control-label col-xs-5") }}
+                    <div class="col-xs-7">
+                         {{ form.region(class='form-control') }}
+                    </div>
+                </div>
                 <div class="form-group">
                     {{ form.name.label(class="control-label col-xs-5") }}
                     <div class="col-xs-7">
@@ -22,12 +43,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    {{ form.currency.label(class="control-label col-xs-5") }}
+                    <div class="col-xs-7">
+                         {{ form.currency(class='form-control') }}
+                    </div>
+                </div>
+                <div class="form-group">
                     {{ form.source_type.label(class="control-label col-xs-5") }}
                     <div class="col-xs-7">
                          {{ form.source_type(class='form-control') }}
                     </div>
                 </div>
-                <div class="form-group" style="display:none;">
+                <div class="form-group source-ref-container" style="visibility:hidden;">
                     {{ form.source_ref.label(class="control-label col-xs-5") }}
                     <div class="col-xs-7">
                          {{ form.source_ref(class='form-control') }}

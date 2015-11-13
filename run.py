@@ -6,6 +6,16 @@ from app import create_app
 # Create the flask app.
 app = create_app()
 
+# Register custom jinja2 filters. TODO: find a better place to do this
+def to_currency(cost, currency):
+    symbol = currency
+    if currency == 'EUR':
+        symbol = u'\u20AC'
+
+    return "%s {:,.2f}".format(cost) % symbol
+
+app.jinja_env.filters['to_currency'] = to_currency
+
 # Run the app
 if __name__ == '__main__':
 

@@ -2,7 +2,12 @@
 {% block body %}
 <script>
     $( document ).ready(function() {
-        $('#projects-table').DataTable();
+        $('#projects-table').DataTable( {
+            "language": {
+                "decimal": ",",
+                "thousands": "."
+            }
+        } );
         $('#currencies-table').DataTable();
     });
 </script>
@@ -61,10 +66,22 @@
                         <tbody>
                             {% for project in projects %}
                             <tr>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.description }}</td>
-                                <td>{{ project.cost }}</td>
-                                <td>{{ project.source.type }}</td>
+                                <td>
+                                    <img src="{{ url_for('static', filename='img/flags/' + project.region + '.png') }}" /> {{ project.name }}
+                                </td>
+                                <td>
+                                    {{ project.description }}
+                                </td>
+                                <td>
+                                    {{ project.cost|to_currency(project.currency) }}
+                                </td>
+                                <td>
+                                {% if project.source.type == 'Link' %}
+                                    <a href="{{ project.source.reference }}" target="_blank">{{ project.source.type }}</a>
+                                {% else %}
+                                    {{ project.source.type }}
+                                {% endif %}
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>

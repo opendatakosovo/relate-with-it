@@ -22,9 +22,11 @@ def project():
     else:
         form = ProjectForm(request.form)
         doc = {
+            'region': form.region.data,
             'name': form.name.data,
             'description': form.description.data,
             'cost': float(form.cost.data),
+            'currency': form.currency.data,
             'source': {
                 'type': form.source_type.data,
                 'reference': form.source_ref.data
