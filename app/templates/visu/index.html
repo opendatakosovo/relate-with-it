@@ -16,7 +16,7 @@
         width: 350px;
     }
     
-    svg {
+    #mainSvg {
         overflow: none;
         padding: 10px;
         float: left;
@@ -45,19 +45,20 @@
     rect {
         fill: #555555;
     }
+    .pictogram *{
+        fill:orange;
+        stroke:orange;
+    }
     </style>
 </head>
 
 <body>
     <script>
-   
-
-
     //placeholder div for jquery slider
     //d3.select("body").append("div").attr("id", "sliderDiv");
 
     //create svg element
-    var svgDoc = d3.select("body").append("svg").attr("viewBox", "0 0 100 150");
+    var svgDoc = d3.select("body").append("svg").attr("id","mainSvg").attr("viewBox", "0 0 100 150");
 
     //define an icon store it in svg <defs> elements as a reusable component - this geometry can be generated from Inkscape, Illustrator or similar
     svgDoc.append("defs")
@@ -65,6 +66,31 @@
         .attr("id", "iconCustom")
         .append("path")
         .attr("d", "M3.5,2H2.7C3,1.8,3.3,1.5,3.3,1.1c0-0.6-0.4-1-1-1c-0.6,0-1,0.4-1,1c0,0.4,0.2,0.7,0.6,0.9H1.1C0.7,2,0.4,2.3,0.4,2.6v1.9c0,0.3,0.3,0.6,0.6,0.6h0.2c0,0,0,0.1,0,0.1v1.9c0,0.3,0.2,0.6,0.3,0.6h1.3c0.2,0,0.3-0.3,0.3-0.6V5.3c0,0,0-0.1,0-0.1h0.2c0.3,0,0.6-0.3,0.6-0.6V2.6C4.1,2.3,3.8,2,3.5,2z");
+
+    /*var img1 = d3.select("body").append("svg").attr("viewBox", "0 0 100 150")
+        .attr("id", "image1")
+        .append("image")
+        .attr("x", "0")
+        .attr("y", "0")
+        .attr("width", "7")
+        .attr("height", "10");*/
+
+    //.attr("xlink:href", "static/img/rent.svg");
+
+    d3.xml("static/img/rent1.svg", "image/svg+xml", function(xml) {
+        var img = document.importNode(xml.documentElement, true);
+        d3.select(/*"#image1"*/"body")[0][0].appendChild(img);
+        d3.select("#rentImg")
+            .attr("class","pictogram")
+            .attr("width","7px")
+            .attr("height","10px");
+            
+    })
+
+    /*
+    http://edutechwiki.unige.ch/en/Using_SVG_with_HTML5_tutorial#Importing_with_original_size_and_create_a_viewBox
+     */
+
 
     //background rectangle
     svgDoc.append("rect").attr("width", 100).attr("height", 150);
@@ -101,24 +127,27 @@
     function addLane(laneName, xShift, yShift) {
 
         svgDoc.append("g")
-            .attr("id", laneName )
-            .selectAll(laneName+" use")
+            .attr("id", laneName)
+            .selectAll(laneName + " use")
             .data(myIndex)
             .enter()
             .append("use")
-                .attr("xlink:href", "#iconCustom")
-                .attr("id", function(d) {
-                    return laneName+"icon" + d;
-                })
-                .attr("x", function(d) {
-                    var remainder = d % numCols; //calculates the x position (column number) using modulus
-                    return xPadding + (remainder * wBuffer) + xShift; //apply the buffer and return value
-                })
-                .attr("y", function(d) {
-                    var whole = Math.floor(d / numCols) //calculates the y position (row number)
-                    return yPadding + (whole * hBuffer); //apply the buffer and return the value
-                })
-                .classed("iconPlain", true);
+            .attr("xlink:href", function(d, i) {
+                if (laneName == "pictoLayer1") return "#rentImg";
+                return "#iconCustom";
+            })
+            .attr("id", function(d) {
+                return laneName + "icon" + d;
+            })
+            .attr("x", function(d) {
+                var remainder = d % numCols; //calculates the x position (column number) using modulus
+                return xPadding + (remainder * wBuffer) + xShift; //apply the buffer and return value
+            })
+            .attr("y", function(d) {
+                var whole = Math.floor(d / numCols) //calculates the y position (row number)
+                return yPadding + (whole * hBuffer); //apply the buffer and return the value
+            })
+            .classed("iconPlain", true);
 
     }
 
@@ -129,10 +158,10 @@
         d3.select("#txtValue").text(amountOfDisplayedPictograms);
 
         //array indexes: 0 to length -1
-        var total = d3.selectAll("#"+ laneName + " use")[0].length - 1;
+        var total = d3.selectAll("#" + laneName + " use")[0].length - 1;
 
 
-        d3.selectAll("#"+ laneName+ " use").attr("class", function(d, i) {
+        d3.selectAll("#" + laneName + " use").attr("class", function(d, i) {
 
             if ((total - d) < amountOfDisplayedPictograms) {
                 return "iconSelected";
@@ -147,21 +176,11 @@
     var laneName2 = "pictoLayer1";
     var laneName3 = "pictoLayer2";
 
-    addLane(laneName1 ,0,0);
-    addLane(laneName2 ,25,0 );
-    addLane(laneName3 ,50,0);
+    addLane(laneName1, 0, 0);
+    addLane(laneName2, 25, 0);
+    addLane(laneName3, 50, 0);
 
-
-    //create a jquery slider to control the pictogram         
-    /*$("#sliderDiv").slider({
-        orientation: "horizontal",
-        min: 0,
-        max: numCols * numRows,
-        value: 0,
-        slide: showPictograms
-    });*/
-
-    var rand = function () {
+    var rand = function() {
         return Math.ceil(Math.random() * 45)
     }
 
@@ -169,7 +188,6 @@
     showPictograms(rand(), laneName1);
     showPictograms(rand(), laneName2);
     showPictograms(rand(), laneName3);
-
     </script>
     <p>Based on <a href="http://bl.ocks.org/alansmithy/d832fc03f6e6a91e99f4">pictogram grid</a></p>
 </body>
