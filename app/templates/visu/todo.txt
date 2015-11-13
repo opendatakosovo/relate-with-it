@@ -1,0 +1,5 @@
+1. switch to start selecting from bottom
+2. unselected pictograms should be invisible
+3. selecting functionality should be done without slider 
+
+*some effects on showing new pictograms
