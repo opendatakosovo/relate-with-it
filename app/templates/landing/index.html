@@ -1,4 +1,5 @@
-{% include 'base/header.html' %}
+{% extends "layout.html" %}
+{% block body %}
 
     <div class="col-md-12">
         <div class="row">
@@ -148,4 +149,4 @@
 				});
 			})();
 		</script>
-{% include 'base/footer.html' %}
+{% endblock %}

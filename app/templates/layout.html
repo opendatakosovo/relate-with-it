@@ -32,10 +32,33 @@
     <link rel="stylesheet" type="text/css" href="http://tympanus.net/codrops/adpacks/demoadpacks.css?1447339066405">
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-    <div  class="header col-md-12">
-        <h1 color="white">
-            RelateWithIt!
-        </h1>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#rwit-navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">RelateWith<em>.It</em></a>
     </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="rwit-navbar-collapse">
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+{% block body %}
+{% endblock %}
+
+
+</body>
