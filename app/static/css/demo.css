@@ -263,6 +263,9 @@ button:focus {
 .hajde-button{
 	width:100px;
 	margin-top:300px;
+	margin-left:9%;
+	z-index:9999;
+	position:absolute;
 }
 .unit-section{
 	height:100%;
