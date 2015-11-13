@@ -1,7 +1,8 @@
 from wtforms import Form, StringField, TextAreaField
 
-class UnitForm(Form):
+class CurrencyForm(Form):
     name = StringField('Name')
-    coversion_rate = StringField('Conversion rate')
     description = TextAreaField('Description')
+    conversion_rate = StringField('Conversion rate')
+
 
