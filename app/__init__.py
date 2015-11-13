@@ -3,9 +3,12 @@ import os
 import ConfigParser
 from flask.ext.pymongo import PyMongo
 from logging.handlers import RotatingFileHandler
+from app.utils.mongo_utils import MongoUtils
 
-# Create MongoDB database object.
 mongo = PyMongo()
+
+#Initialize mongo access point
+mongo_utils = MongoUtils(mongo)
 
 def create_app():
 

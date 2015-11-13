@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "admin_layout.html" %}
 {% block body %}
 
 <div class="container-fluid">
@@ -25,6 +25,32 @@
 	</div>
     <div class="row">
 		<div class="col-md-12">
+            <table id="example" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Kosovo</th>
+                        <th>Montenegro</th>
+                        <th>Serbia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for currency in currencies %}
+                    <tr>
+                        <td>{{ currency.name }}</td>
+                        <td>{{ currency.description }}</td>
+                        <td>{{ currency.exchangeRate.kosovo }}</td>
+                        <td>{{ currency.exchangeRate.montenegro }}</td>
+                        <td>{{ currency.exchangeRate.serbia }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% for project in projects %}
+                {{ project.name }}
+            {% endfor %}
 		</div>
 	</div>
 </div>

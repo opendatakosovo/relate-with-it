@@ -1,22 +1,35 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, url_for, redirect
 from currencyform import CurrencyForm
 from projectform import ProjectForm
+from app import mongo_utils
 
-mod_admin = Blueprint('admin', __name__, url_prefix = '/admin')
+
+mod_admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 @mod_admin.route('/', methods=['GET'])
 def index():
-    return render_template('/mod_admin/index.html')
+    currencies = mongo_utils.get_currencies()
+    projects = mongo_utils.get_projects()
+    return render_template('/mod_admin/index.html', projects=projects, currencies=currencies)
 
 
 @mod_admin.route('/project', methods=['GET', 'POST'])
 def project():
     if request.method == 'GET':
-        return render_template('/mod_admin/project.html')
+        form = ProjectForm()
+        return render_template('/mod_admin/project.html', form=form)
+
     else:
-        form = ProjectForm(request)
-        # TODO: persist in database using mongoutils.save()
-        return render_template('/mod_admin/index.html')
+        form = ProjectForm(request.form)
+        doc = {
+            'name': form.name.data,
+            'description': form.description.data,
+            'cost': 100000,
+            'imageUrl': ''
+        }
+        mongo_utils.save_project(doc)
+
+        return redirect(url_for('admin.index'))
 
 
 @mod_admin.route('/currency', methods=['GET', 'POST'])
@@ -26,6 +39,17 @@ def currency():
         return render_template('/mod_admin/currency.html', form=form)
 
     else:
-        form = CurrencyForm(request)
-        # TODO: persist in database using mongoutils.save()
-        return render_template('/mod_admin/index.html')
+        form = CurrencyForm(request.form)
+        doc = {
+            'name': form.name.data,
+            'description': form.description.data,
+            'exchangeRate': {
+                'kosovo': float(form.exchange_rate_ks.data),
+                'montenegro': float(form.exchange_rate_me.data),
+                'serbia': float(form.exchange_rate_rs.data),
+            },
+            'imageUrl': ''
+        }
+        mongo_utils.save_currency(doc)
+
+        return redirect(url_for('admin.index'))
