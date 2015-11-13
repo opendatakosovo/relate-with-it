@@ -1,11 +1,9 @@
 1. switch to start selecting from bottom +
 2. unselected pictograms should be invisible +
 3. selecting functionality should be done without slider +
-
-
-
-4. multiply svgViewBoxes - 'columns'
+4. multiply svgViewBoxes - 'columns'+
 5. different pictograms to use
 
-*some effects on showing new pictograms
+* some effects on showing new pictograms
 * think about responisve design
+* think in therms of scope (when there is no clear price, but range e.g. school can cost from 50k-150k euros)
