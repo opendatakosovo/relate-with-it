@@ -261,11 +261,27 @@
 		transform: rotate3d(0,0,1,20deg);
 	}
 }
+.stack-project {
+	width: 400px;
+	padding: 0;
+	position: relative;
+	max-width: 100%;
+}
 
+.stack-project img {
+	max-width: 100%;
+	position: absolute;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
+	outline: 1px solid transparent;
+}
+
+.stack-project img:last-child {
+	position: relative;
+}
 
 
 .stack-grid {
-	margin: 20px auto;
 	width: 400px;
 	padding: 0;
 	position: relative;
