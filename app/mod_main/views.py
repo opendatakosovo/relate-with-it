@@ -7,3 +7,8 @@ mod_main = Blueprint('main', __name__)
 def index():
     print 'todo: implement'
     return render_template('/landing/index.html')
+
+@mod_main.route('/visu', methods=['GET'])
+def visu():
+    print 'todo: implement'
+    return render_template('/visu/index.html')    
