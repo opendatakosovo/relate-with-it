@@ -2,7 +2,11 @@
 2. unselected pictograms should be invisible +
 3. selecting functionality should be done without slider +
 4. multiply svgViewBoxes - 'columns'+
-5. different pictograms to use
+5. different pictograms to use +
+6. three independent colmns
+7. "title" with picture above every column
+8. switch with click on column
+
 
 * some effects on showing new pictograms
 * think about responisve design
