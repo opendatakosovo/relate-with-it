@@ -32,7 +32,10 @@ if ( 'classList' in document.documentElement ) {
     return elem.classList.contains( c );
   };
   addClass = function( elem, c ) {
-    elem.classList.add( c );
+    if(elem != undefined){
+      elem.classList.add( c );
+    }
+
   };
   removeClass = function( elem, c ) {
     elem.classList.remove( c );
