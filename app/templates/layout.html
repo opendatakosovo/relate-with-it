@@ -9,6 +9,8 @@
     <meta name="keywords" content="" />
     <meta name="author" content="" />
     <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/font-awesome/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/demo.css') }}" />
@@ -18,6 +20,12 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/freelancer.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/relatewithit.css') }}" />
 
+    <link rel="stylesheet" type="text/css" href="http://tympanus.net/codrops/adpacks/demoadpacks.css?1447339066405">
+
+    {% block style %}
+    {% endblock %}
+
+    <!-- Javascript -->
     <script src="{{ url_for('static', filename='js/modernizr-custom.js')}}"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="{{ url_for('static', filename='js/dynamics.min.js') }}"></script>
@@ -27,13 +35,6 @@
     {% block script %}
     {% endblock %}
 
-    {% block style %}
-    {% endblock %}
-
-
-
-
-    <link rel="stylesheet" type="text/css" href="http://tympanus.net/codrops/adpacks/demoadpacks.css?1447339066405">
 </head>
 <body>
 
