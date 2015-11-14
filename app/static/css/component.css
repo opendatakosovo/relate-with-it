@@ -266,6 +266,8 @@
 	padding: 0;
 	position: relative;
 	max-width: 100%;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 .stack-project img {
@@ -286,6 +288,8 @@
 	padding: 0;
 	position: relative;
 	max-width: 100%;
+	margin-left: auto;
+    margin-right: auto;
 }
 
 .stack-grid img {
