@@ -23,12 +23,13 @@
 }
 .hajde-button {
     width: 100px;
+    opacity: 0.8;
     margin-top: 335px !important;
     margin-left: auto;
     margin-right: auto;
 }
 .hajde-button:hover {
-    opacity: 0.4;
+    opacity: 1;
     filter: alpha(opacity=40); /* For IE8 and earlier */
 }
 #choose-params-modal {
@@ -54,5 +55,8 @@
         width:100%;
         height:50px;
         display:block;
+    }
+    .project-section {
+        margin-top: -19px;
     }
 }

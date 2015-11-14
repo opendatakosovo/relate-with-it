@@ -16,12 +16,11 @@
 					<div class="unit-section col-md-5">
 						<h1>Unit</h1>
 							<section>
-									<button>Toggle effect</button>
 								<figure class="stack-grid stack-sidegrid active">
-									<img class="image400x400" src="{{ url_for('static', filename='img/1.png') }}" alt="img01">
-									<img class="image400x400" src="{{ url_for('static', filename='img/3.png') }}" alt="img03">
-									<img class="image400x400" src="{{ url_for('static', filename='img/4.png') }}" alt="img04">
-									<img class="image400x400" src="{{ url_for('static', filename='img/2.png') }}" alt="img02">
+									<img id="4" class="unit-item item4 image400x400" src="{{ url_for('static', filename='img/4.png') }}" alt="img01">
+									<img id="3" class="unit-item item3 image400x400" src="{{ url_for('static', filename='img/3.png') }}" alt="img02">
+									<img id="2" class="unit-item item2 image400x400" src="{{ url_for('static', filename='img/2.png') }}" alt="img03">
+									<img id="1" class="unit-item item1 image400x400" src="{{ url_for('static', filename='img/1.png') }}" alt="img04">
 								</figure>
 							</section>
 							<script src="{{ url_for('static', filename='js/unit.js') }}"></script>
@@ -31,15 +30,14 @@
 					</div>
 					<div class="project-section col-md-5">
 						<h1>Project</h1>
-					   <section>
-							<button>Toggle effect</button>
+					    <section>
 							<figure class="stack-project stack-sidegrid active">
-								<img src="{{ url_for('static', filename='img/1.png') }}" alt="img01">
-								<img src="{{ url_for('static', filename='img/3.png') }}" alt="img03">
-								<img src="{{ url_for('static', filename='img/4.png') }}" alt="img04">
-								<img src="{{ url_for('static', filename='img/2.png') }}" alt="img02">
+								<img id="4" class="project-item pitem4 " src="{{ url_for('static', filename='img/4.png') }}" alt="img01">
+								<img id="3" class="project-item pitem3 " src="{{ url_for('static', filename='img/3.png') }}" alt="img02">
+								<img id="2" class="project-item pitem2 " src="{{ url_for('static', filename='img/2.png') }}" alt="img03">
+								<img id="1" class="project-item pitem1 " src="{{ url_for('static', filename='img/1.png') }}" alt="img04">
 							</figure>
-						</section>
+					    </section>
 						 <script src="{{ url_for('static', filename='js/section.js') }}"></script>
 					</div>
 				</div>
