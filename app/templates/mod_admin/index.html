@@ -113,9 +113,9 @@
                             <tr>
                                 <td>{{ currency.name }}</td>
                                 <td>{{ currency.description }}</td>
-                                <td>{{ currency['values']['kosovo'] }}</td>
-                                <td>{{ currency['values']['montenegro'] }}</td>
-                                <td>{{ currency['values']['serbia'] }}</td>
+                                <td><a href="{{ currency['kosovo']['source'] }}" target="_blank">{{ currency['kosovo']['value'] }}</a></td>
+                                <td><a href="{{ currency['montenegro']['source'] }}" target="_blank">{{ currency['montenegro']['value'] }}</a></td>
+                                <td><a href="{{ currency['serbia']['source'] }}" target="_blank">{{ currency['serbia']['value'] }}</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

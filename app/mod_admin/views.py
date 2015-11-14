@@ -49,10 +49,17 @@ def currency():
         doc = {
             'name': form.name.data,
             'description': form.description.data,
-            'values': {
-                'kosovo': float(form.value_ks.data),
-                'montenegro': float(form.value_me.data),
-                'serbia': float(form.value_rs.data),
+            'kosovo': {
+                'value': float(form.value_ks.data),
+                'source': form.source_ks.data
+            },
+            'montenegro': {
+                'value': float(form.value_me.data),
+                'source': form.source_me.data
+            },
+            'serbia': {
+                'value': float(form.value_rs.data),
+                'source': form.source_rs.data
             },
             'imageUrl': ''
         }
