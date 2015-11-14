@@ -1,4 +1,4 @@
-{% extends "layout.html" %} 
+
 
 {% block script %}
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -38,6 +38,7 @@ rect {
     fill: #555555;
 }
 
+/*not used with png*/
 .pictogram * {
     fill: orange;
     stroke: orange;
@@ -49,7 +50,6 @@ rect {
 
 @media screen and (max-width: 800px) {
    
-
     .svgLane {
       
         width: 80vw;
@@ -58,7 +58,22 @@ rect {
         float: left;
         margin: 0 6vw;
     }
+
 }
+
+@media screen and (min-width: 801px) and (max-width: 1000px) {
+   
+    .svgLane {
+      
+        width: 30vw;
+        height: 95vh;/* 550px; */
+        padding: 5px;
+        float: left;
+        margin: 0 6vw;
+    }
+    
+}
+
 </style>
 {% endblock %} 
 
@@ -130,6 +145,7 @@ imgNames.forEach(function(imgName, ind) {
         .attr("width", "7")
         .attr("height", "10")
         .attr("xlink:href", imgName);
+
 })
 
 
@@ -146,6 +162,7 @@ svgFrames.forEach(function(el, index) {
         .text("0");
 
     el
+        .append("g")
         .append("use")
         .attr("x", xPadding * 3.5)
         .attr("y", yPadding / 4)
@@ -173,6 +190,41 @@ svgFrames.forEach(function(el, index) {
 
         });
 
+    var multiplyer = "1k";          
+           
+
+    el.select("g")
+            .append("text") 
+                .attr("y", function (d,i) {
+                  var tempY = 
+                    this.parentElement
+                        .getElementsByTagName("use")[0]
+                        .getAttribute('y');
+
+                  return tempY;  
+                })
+                .attr("x",  function (d,i) {
+                  var tempX = 
+                    this.parentElement
+                        .getElementsByTagName("use")[0]
+                        .getAttribute('x');  
+                  return tempX;  
+                })
+                .attr("dy", 3)
+                .attr("dx", -5)
+                .attr("style",'font-size:3px' )
+                .attr("class",function (d,i) {
+                    console.log(this)
+
+                    d3.select(this).attr("class",'');
+                    var klas = this.parentElement
+                        .getElementsByTagName("use")[0]
+                        .classList;
+                    return klas[0];    
+                    
+                })
+                .text("x"+multiplyer);     
+
 })
 
 function removeLane(laneName) {
@@ -186,27 +238,31 @@ function addLane(svgFrame, laneName, xShift, yShift, imgUri) {
         .selectAll(laneName + " use")
         .data(myIndex)
         .enter()
-        .append("use")
-        .attr("xlink:href", function(d, i) {
+        //.append("g")
+           
+            .append("use")
+            .attr("xlink:href", function(d, i) {
 
-            if (imgUri != undefined) {
-                //remove the previous                    
-                return imgUri;
-            }
-            //else set default
-        })
-        .attr("id", function(d) {
-            return laneName + "icon" + d;
-        })
-        .attr("x", function(d) {
-            var remainder = d % numCols; //calculates the x position (column number) using modulus
-            return xPadding + (remainder * wBuffer) + xShift; //apply the buffer and return value
-        })
-        .attr("y", function(d) {
-            var whole = Math.floor(d / numCols) //calculates the y position (row number)
-            return yPadding + (whole * hBuffer); //apply the buffer and return the value
-        })
-        .classed("iconPlain", true);
+                if (imgUri != undefined) {
+                    //remove the previous                    
+                    return imgUri;
+                }
+                //else set default
+            })
+            .attr("id", function(d) {
+                return laneName + "icon" + d;
+            })
+            .attr("x", function(d) {
+                var remainder = d % numCols; //calculates the x position (column number) using modulus
+                return xPadding + (remainder * wBuffer) + xShift; //apply the buffer and return value
+            })
+            .attr("y", function(d) {
+                var whole = Math.floor(d / numCols) //calculates the y position (row number)
+                return yPadding + (whole * hBuffer); //apply the buffer and return the value
+            })
+           ;
+
+      
 
 }
 
