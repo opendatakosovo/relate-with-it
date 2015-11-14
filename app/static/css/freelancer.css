@@ -412,6 +412,8 @@ footer .footer-below {
 
 .portfolio-modal .modal-content img {
     margin-bottom: 30px;
+    /* position: relative; */
+    /* z-index: 9999; */
 }
 
 .portfolio-modal .modal-content .item-details {

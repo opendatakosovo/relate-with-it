@@ -87,10 +87,24 @@ rect {
 
 <script>
 
+/**
+ * external params
+ */
+var multiplyer = 10; 
+var imgIds = ["rentImg", "stadiumImg", "fountanImg"];
+var imgNames = ["static/img/1.png", "static/img/2.png", "static/img/3.png"];
+/**
+ * ! external params
+ */
 
-/*
-    dependinding on screen size, icon should have width and height
-*/
+
+var svgFrameNames = ["mainSvg", "mainSvg1", "mainSvg2"];
+var svgFrames = [];
+
+var laneName1 = "pictoLayer";
+var laneName2 = "pictoLayer1";
+var laneName3 = "pictoLayer2";
+
 
 //specify the number of columns and rows for pictogram layout
 var numCols = 10;
@@ -111,8 +125,6 @@ var wBuffer = 8;
 //generate a d3 range for the total number of required elements
 var myIndex = d3.range(numPicto);
 
-var svgFrameNames = ["mainSvg", "mainSvg1", "mainSvg2"];
-var svgFrames = [];
 
 svgFrameNames.forEach(function(la) {
     var temp = d3.select("#visu")
@@ -129,10 +141,10 @@ svgFrameNames.forEach(function(la) {
 
 })
 
-var imgIds = ["rentImg", "stadiumImg", "fountanImg"];
-var imgNames = ["static/img/1.png", "static/img/2.png", "static/img/3.png"];
 
 imgNames.forEach(function(imgName, ind) {
+    //invisible icons
+    //used later by reference
     d3.select("#mainSvg2 rect")
         .append("image")
         .attr("id", imgIds[ind])
@@ -141,7 +153,6 @@ imgNames.forEach(function(imgName, ind) {
         .attr("width", "7")
         .attr("height", "10")
         .attr("xlink:href", imgName);
-
 })
 
 
@@ -171,9 +182,11 @@ svgFrames.forEach(function(el, index) {
         .attr('cursor', "pointer")
         .on("click", function() {
             var tempElName = el[0][0].id;
-            var tempLaneName = d3.select("#" + tempElName + " g[id]").attr("id");
+            var tempLaneName = 
+                d3.select("#" + tempElName + " g[id]").attr("id");
 
-            var randImg = ["#stadiumImg", "#fountanImg", "#rentImg"][rand(3) - 1]
+            var randImg = 
+                ["#stadiumImg", "#fountanImg", "#rentImg"][rand(3) - 1]
             var tempNumPicto = rand(numPicto);
 
             d3.select(this).attr("xlink:href", randImg)
@@ -185,40 +198,29 @@ svgFrames.forEach(function(el, index) {
 
         });
 
-    var multiplyer = "10"; 
-    
     
 
     el.select("g")
-            .append("text") 
-                .attr("y", function (d,i) {
-                  var tempY = 
-                    this.parentElement
-                        .getElementsByTagName("use")[0]
-                        .getAttribute('y');
+        .append("text") 
+            .attr("y", function (d,i) {
+              var tempY = 
+                this.parentElement
+                    .getElementsByTagName("use")[0]
+                    .getAttribute('y');
 
-                  return tempY;  
-                })
-                .attr("x",  function (d,i) {
-                  var tempX = 
-                    this.parentElement
-                        .getElementsByTagName("use")[0]
-                        .getAttribute('x');  
-                  return tempX;  
-                })
-                .attr("dy", 3)
-                .attr("dx", -5)
-                .attr("style",'font-size:3px' )
-                .attr("class",function (d,i) {
-                    
-                    d3.select(this).attr("class",'');
-                    var klas = this.parentElement
-                        .getElementsByTagName("use")[0]
-                        .classList;
-                    return klas[0];    
-                    
-                })
-                .text("x "+multiplyer);     
+              return tempY;  
+            })
+            .attr("x",  function (d,i) {
+              var tempX = 
+                this.parentElement
+                    .getElementsByTagName("use")[0]
+                    .getAttribute('x');  
+              return tempX;  
+            })
+            .attr("dy", 3)
+            .attr("dx", -5)
+            .attr("style",'font-size:3px' )                
+            .text("x " + multiplyer);     
     
 })
 
@@ -232,9 +234,7 @@ function addLane(svgFrame, laneName, xShift, yShift, imgUri) {
         .attr("id", laneName)
         .selectAll(laneName + " use")
         .data(myIndex)
-        .enter()
-        //.append("g")
-           
+        .enter()           
             .append("use")
             .attr("xlink:href", function(d, i) {
 
@@ -254,10 +254,7 @@ function addLane(svgFrame, laneName, xShift, yShift, imgUri) {
             .attr("y", function(d) {
                 var whole = Math.floor(d / numCols) //calculates the y position (row number)
                 return yPadding + (whole * hBuffer); //apply the buffer and return the value
-            })
-           ;
-
-      
+            });
 
 }
 
@@ -292,17 +289,129 @@ function addImage(pathToImage) {
 
 }
 
+/**
+ * 
+ * @param  number projectValue [description]
+ * @param  number unitValue    [description] 
+ * @return object   
+ *                 multiplier short form for multipliers (k-1000, m -1000*1000, b-1000*1000*1000)
+ *                 numberOfPictograms shouldn't be bigger than numPicto (e.g 150)
+ * // value of one unit[uv] (eg. 400eur)
+    // Project value[pv] (eg. 190m eur)
+    // pv/uv = (190 * 1000 * 1000 )/400 = 4.75 * 100 *1000 = 475 * 1000
+    // max amount of units is 150
+    // -> 475 *1000 = 47 * 5k                             
+ */
+function unitsNumber (projectValue, unitValue) {    
+    var noTemp = projectValue / unitValue;
+    var result = {"multiplier":5, "numberOfPictograms":10};     
+    
+    //depends on unit value; !see what is happening when unit value is > 1k
 
-var laneName1 = "pictoLayer";
-var laneName2 = "pictoLayer1";
-var laneName3 = "pictoLayer2";
+    if(noTemp < 151 ){
+      result.multiplier=1;  
+    } 
+    
+        //max pv: 999b
+        //max noTemp : 150
+        //100b eur: 400eur => 100 * 1000 * 1000 * 1000 : 400 ~=250 * 100  * 1000 * 1000 => 2500 * 10m / 150 = 16.7 *10m
+    
+        // 100m+ units && less than 150 * 100m units
+        if (noTemp > 1000 * 1000 * 100) { 
+            
+            tempVal= noTemp / ( 1000 * 1000 * 100);
+            if(tempVal > 15) 
+            //if it's less than 15 = (150 /10) go one level down
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "100m";            
+                }            
+        }
+     
+        if (noTemp > 1000 * 1000 * 10) { // 10m+ units
+            
+            tempVal= noTemp / ( 1000 * 1000 * 10);
+            if(tempVal > 15) 
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "10m";            
+                }            
+        }
+    
+        if(noTemp > 1000 * 1000 ){//1m+
+            tempVal= noTemp / ( 1000 * 1000);
+            if(tempVal > 15) 
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "1m";               
+                }            
+        }
+    
+        if(noTemp > 1000 * 100 ){ //100k+
+            tempVal= noTemp / ( 1000 * 100);
+            if(tempVal > 15) 
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "100k";               
+                }            
+        }   
+    
+        if(noTemp > 1000 * 10 ){ //10k+
+            tempVal= noTemp / ( 1000 * 10);
+            if(tempVal > 15) 
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "10k";               
+                }            
+        }
+    
+        if(noTemp > 1000  ){ //1k+
+            tempVal= noTemp / ( 1000 );
+            if(tempVal > 15) 
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "1k";               
+                }            
+        }
+    
+        if(noTemp > 100  ){ //100+
+            tempVal= noTemp / ( 100 );
+            if(tempVal > 15) 
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "100";               
+                }            
+        }
+    
+        if(noTemp > 10  ){ //10+
+            tempVal= noTemp / ( 10 );
+            if(tempVal > 15) 
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "10";               
+                }            
+        }
 
-addLane("#mainSvg", laneName1, 0, 0, "#rentImg");
-addLane("#mainSvg1", laneName2, 0, 0, "#stadiumImg");
-addLane("#mainSvg2", laneName3, 0, 0, "#fountanImg");
+    result.numberOfPictograms =  noTemp;      
 
-showPictograms(rand(numPicto), laneName1);
-showPictograms(rand(numPicto), laneName2);
-showPictograms(rand(numPicto), laneName3);
+    return result;
+}
+ 
+// divide by multiplyer if multiplier is greater than 1
+var noPict1 = rand(numPicto) ; 
+var noPict2 = rand(numPicto) ;
+var noPict3 = rand(numPicto) ;
+
+
+addLane("#" + svgFrameNames[0], laneName1, 0, 0, "#" + imgIds[0]);
+addLane("#" + svgFrameNames[1], laneName2, 0, 0, "#"+ imgIds[1]);
+addLane("#" + svgFrameNames[2], laneName3, 0, 0, "#"+ imgIds[2]);
+
+
+showPictograms( noPict1, laneName1);
+showPictograms( noPict2, laneName2);
+showPictograms( noPict3, laneName3);
+
 </script>
+
 {% endblock %}
