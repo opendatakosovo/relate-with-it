@@ -9,7 +9,8 @@ def index():
     print 'todo: implement'
     return "Will be implemented soon! Come back tomorrow!"
 
-@mod_api.route('/<region>/<dataset>', methods=['GET'])
+
+@mod_api.route('/dataset/<region>/<dataset>', methods=['GET'])
 def expenses(region, dataset):
     ''' Retrieve expenses based on region and dataset.
 
@@ -19,6 +20,22 @@ def expenses(region, dataset):
     '''
     results = mongo_utils.get_expenses(region, dataset)
 
+    return Response(response=json_util.dumps(results),
+                    status=200,
+                    mimetype='application/json')
+
+
+@mod_api.route('/projects', methods=['GET'])
+def projects():
+    results = mongo_utils.get_projects()
+    return Response(response=json_util.dumps(results),
+                    status=200,
+                    mimetype='application/json')
+
+
+@mod_api.route('/currencies', methods=['GET'])
+def currencies():
+    results = mongo_utils.get_currencies()
     return Response(response=json_util.dumps(results),
                     status=200,
                     mimetype='application/json')
