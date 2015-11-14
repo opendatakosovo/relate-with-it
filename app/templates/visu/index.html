@@ -1,14 +1,11 @@
-<!doctype html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-    <!--demonstration of using the svg 'use' element to create a pictogram-->
+{% block script %}
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-    <script src="//cdn.jsdelivr.net/jquery.ui.touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-    <style type="text/css">
+{% endblock %}
+
+{% block style %}
+ <style type="text/css">
     #sliderDiv {
         margin: 10px;
         margin-top: 30px;
@@ -53,9 +50,10 @@
         stroke:orange;
     }
     </style>
-</head>
+{% endblock %}
+    
+{% block body %}
 
-<body>
     <script>
     //placeholder div for jquery slider
     //d3.select("body").append("div").attr("id", "sliderDiv");
@@ -206,6 +204,4 @@
     showPictograms(rand(), laneName3);
     </script>
     <p>Based on <a href="http://bl.ocks.org/alansmithy/d832fc03f6e6a91e99f4">pictogram grid</a></p>
-</body>
-
-</html>
+{% endblock %}
