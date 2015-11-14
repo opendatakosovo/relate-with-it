@@ -13,15 +13,18 @@
         width: 350px;
     }
     
-    #mainSvg {
+    #mainSvg {       
+       
+    }
+
+    .svgLane{
+        display: inline;
+        width: 350px;
+        height: 550px;
         overflow: none;
         padding: 10px;
         float: left;
-        width: 350px;
-        height: 550px;
-    }
-    .svgLane{
-        display: inline;
+
     }
     
     text {
@@ -63,14 +66,21 @@
         .attr("id","mainSvg")
         .attr("class","svgLane")
         .attr("viewBox", "0 0 100 150");
+
     var svgDoc1 = d3.select("body").append("svg")
         .attr("id","mainSvg1")
         .attr("class","svgLane")
         .attr("viewBox", "0 0 100 150");
+
     var svgDoc2 = d3.select("body").append("svg")
         .attr("id","mainSvg2")
         .attr("class","svgLane")
         .attr("viewBox", "0 0 100 150");
+
+    //background rectangle
+    svgDoc.append("rect").attr("width", 100).attr("height", 150);
+    svgDoc1.append("rect").attr("width", 100).attr("height", 150);
+    svgDoc2.append("rect").attr("width", 100).attr("height", 150);    
 
     //define an icon store it in svg <defs> elements as a reusable component - this geometry can be generated from Inkscape, Illustrator or similar
     svgDoc.append("defs")
@@ -79,15 +89,9 @@
         .append("path")
         .attr("d", "M3.5,2H2.7C3,1.8,3.3,1.5,3.3,1.1c0-0.6-0.4-1-1-1c-0.6,0-1,0.4-1,1c0,0.4,0.2,0.7,0.6,0.9H1.1C0.7,2,0.4,2.3,0.4,2.6v1.9c0,0.3,0.3,0.6,0.6,0.6h0.2c0,0,0,0.1,0,0.1v1.9c0,0.3,0.2,0.6,0.3,0.6h1.3c0.2,0,0.3-0.3,0.3-0.6V5.3c0,0,0-0.1,0-0.1h0.2c0.3,0,0.6-0.3,0.6-0.6V2.6C4.1,2.3,3.8,2,3.5,2z");
 
-    var img1 = d3.select("body").append("svg")
-        .attr("viewBox", "0 0 100 150")
-        .attr("id", "rentImg")
-        .append("image")
-        .attr("x", "0")
-        .attr("y", "0")
-        .attr("width", "7")
-        .attr("height", "10")
-        .attr("xlink:href", "static/img/1.png");
+    //svgDoc.append("img")    
+
+    
 
     /* svg image */
     /*
@@ -105,9 +109,18 @@
     http://edutechwiki.unige.ch/en/Using_SVG_with_HTML5_tutorial#Importing_with_original_size_and_create_a_viewBox
      */
 
+    var img1 = d3.select("#mainSvg2 rect")/*.append("svg")
+        .attr("viewBox", "0 0 100 150")*/
+        
+        .append("image")
+        .attr("id", "rentImg")
+        .attr("x", "0")
+        .attr("y", "0")
+        .attr("width", "7")
+        .attr("height", "10")
+        .attr("xlink:href", "static/img/1.png");
 
-    //background rectangle
-    svgDoc.append("rect").attr("width", 100).attr("height", 150);
+    
 
     //specify the number of columns and rows for pictogram layout
     //numCols * numRows = max amount of pictograms
@@ -131,12 +144,31 @@
     //text element to display number of icons highlighted
     svgDoc.append("text")
         .attr("id", "txtValue")
-        .attr("x", xPadding)
+        .attr("x", xPadding * 4.2)
         .attr("y", yPadding)
         .attr("dy", -3)
         .text("0");
+    
+    svgDoc
+        .append("use")
+        .attr("x", xPadding * 3.5)
+        .attr("y", yPadding/4)
+        .attr("dy", -3)
+        .attr("dx", 5)
+        .attr("xlink:href", "#rentImg")
+        .attr('cursor',"hand" )
+        .attr('cursor',"pointer" )
+        .on("click",function (d,i) {
+            alert("Switch image")
+        });
 
     //create group element and create an svg <use> element for each icon
+
+    function addImage (pathToImage) {
+        
+        // make it working with png, jpeg and svg        
+
+    }
 
     function addLane(laneName, xShift, yShift) {
 
@@ -202,6 +234,9 @@
     showPictograms(rand(), laneName1);
     showPictograms(rand(), laneName2);
     showPictograms(rand(), laneName3);
+
     </script>
+
     <p>Based on <a href="http://bl.ocks.org/alansmithy/d832fc03f6e6a91e99f4">pictogram grid</a></p>
+
 {% endblock %}
