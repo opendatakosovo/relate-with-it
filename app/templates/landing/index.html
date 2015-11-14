@@ -1,42 +1,50 @@
 {% extends "layout.html" %}
 {% block body %}
+	<button href="#choose-params-modal" class="portfolio-link" data-toggle="modal">Open Modal</button>
 
-    <div class="col-md-12">
-        <div class="row">
-            <div class="unit-section col-md-6">
+
+	<div class="portfolio-modal modal fade in" id="choose-params-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+			<div class="container-fluid">
 				<div class="row">
-					<div class="unit-section col-md-10">
+					<div class="unit-section col-md-5">
 						<h1>Unit</h1>
-						<section>
+							<section>
+									<button>Toggle effect</button>
+								<figure class="stack-grid stack-sidegrid active">
+									<img class="image400x400" src="{{ url_for('static', filename='img/1.png') }}" alt="img01">
+									<img class="image400x400" src="{{ url_for('static', filename='img/3.png') }}" alt="img03">
+									<img class="image400x400" src="{{ url_for('static', filename='img/4.png') }}" alt="img04">
+									<img class="image400x400" src="{{ url_for('static', filename='img/2.png') }}" alt="img02">
+								</figure>
+							</section>
+							<script src="{{ url_for('static', filename='js/unit.js') }}"></script>
+					</div>
+					<div class="hajde col-md-2">
+						<a href="#"><img class="hajde-button img-responsive img-center" width=100px; src="{{ url_for('static', filename='img/hajde.png') }}"></a>
+					</div>
+					<div class="project-section col-md-5">
+						<h1>Project</h1>
+					   <section>
 							<button>Toggle effect</button>
-							<figure class="stack-grid stack-sidegrid active">
+							<figure class="stack-project stack-sidegrid active">
 								<img src="{{ url_for('static', filename='img/1.png') }}" alt="img01">
 								<img src="{{ url_for('static', filename='img/3.png') }}" alt="img03">
 								<img src="{{ url_for('static', filename='img/4.png') }}" alt="img04">
 								<img src="{{ url_for('static', filename='img/2.png') }}" alt="img02">
 							</figure>
 						</section>
-						<script src="{{ url_for('static', filename='js/stackeffect.js') }}"></script>
+						 <script src="{{ url_for('static', filename='js/section.js') }}"></script>
 					</div>
-						<div class="hajde" class="col-md-2">
-							<img class="hajde-button" src="{{ url_for('static', filename='img/hajde.png') }}">
-						</div>
 				</div>
-            </div>
-
-            <div class="project-section col-md-6">
-				<h1>Project</h1>
-               <section>
-                    <button>Toggle effect</button>
-                    <figure class="stack-project stack-sidegrid active">
-                        <img src="{{ url_for('static', filename='img/1.png') }}" alt="img01">
-                        <img src="{{ url_for('static', filename='img/3.png') }}" alt="img03">
-                        <img src="{{ url_for('static', filename='img/4.png') }}" alt="img04">
-                        <img src="{{ url_for('static', filename='img/2.png') }}" alt="img02">
-                    </figure>
-                </section>
-				 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-            </div>
+			</div>
+{#			<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>#}
         </div>
-
+    </div>
 {% endblock %}
