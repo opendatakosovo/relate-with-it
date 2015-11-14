@@ -4,13 +4,36 @@
     $( document ).ready(function() {
 
         var montenegroExpensesRetrieved = false;
-var selected = [];
+
         var montenegroExpensesTable = $( "#montenegro-expenses-table" ).DataTable( {
             dom: 'T<"clear">lfrtip',
             tableTools: {
                 "sRowSelect": "multi",
                 "aButtons": [ "select_all", "select_none" ]
             }
+        });
+
+
+        $('#montenegro-expenses-table').on('click', 'tr', function(event) {
+            var cost = parseFloat(montenegroExpensesTable.row( this ).data()[3])
+
+            var newCost = 0;
+            var currentCost = $('#cost').val();
+            if(currentCost == undefined || currentCost === '' || currentCost === NaN){
+                currentCost = 0.0;
+            }
+
+            if($(this).hasClass('selected')){
+               newCost = parseFloat(currentCost) + cost;
+            }else{
+               newCost = parseFloat(currentCost) - cost;
+            }
+
+            if(newCost < 100){
+                newCost = 0.0;
+            }
+
+            $('#cost').val(newCost);
         });
 
         $( "#source_type" ).change(function() {
