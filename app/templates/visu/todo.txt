@@ -7,9 +7,10 @@
 7. "title" with picture above every column +
 8. switch with click on column icon +
 9. one type of pictogram in one lane +
-10. bootstrap columns
-11. put it on the front page
+10. bootstrap columns +-
+11. put it on the front page + Partin did it
 12. define value adding functions
+13. add multiplyer on icons +
 
 
 
