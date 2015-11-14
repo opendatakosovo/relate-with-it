@@ -44,11 +44,15 @@
         $( "#source_type" ).change(function() {
             if($( "#source_type" ).val() === 'Link'){
                 $('#cost').val('');
+                $('#source_ref').val('');
 
                 $('.source-ref-container').css('display','block');
                 $('.cost-container').css('display','block');
                 $('.currency-container').css('display','block');
 
+                $('#currency option[value=""]').attr("selected", "selected");
+
+                $('#region').prop('disabled', true);
                 $('#cost').prop('disabled', false);
                 $('#currency').prop('disabled', false);
 
@@ -62,26 +66,33 @@
                 $('.cost-container').css('display','block');
                 $('.currency-container').css('display','block');
 
+                $('#region').prop('disabled', true);
                 $('#cost').prop('disabled', true);
                 $('#currency').prop('disabled', true);
 
                 if($('#region').val() === 'Kosovo'){
-                    $('#source_ref').val('');
+                    $('#source_ref').val('https://github.com/opendatakosovo/relate-with-it/tree/master/importer/data/kosovo');
                     $('#currency option[value="EUR"]').attr("selected", "selected");
                     displayKosovoExpensesTable();
 
-                }else if($('#region').val() === 'Montenegro')
-                    $('#source_ref').val('');
+                }else if($('#region').val() === 'Montenegro'){
+                    $('#source_ref').val('https://github.com/opendatakosovo/relate-with-it/tree/master/importer/data/montenegro');
                     $('#currency option[value="EUR"]').attr("selected", "selected");
                     displayMontenegroExpensesTable();
 
                 }else if($('#region').val() === 'Serbia'){
-                    $('#source_ref').val('');
+                    $('#source_ref').val('https://github.com/opendatakosovo/relate-with-it/tree/master/importer/data/serbia');
                     $('#currency option[value="RSD"]').attr("selected", "selected");
                     displaySerbiaExpensesTable();
                 }
             }else{
-                 hideAllExpenseTables();
+                $('#region').prop('disabled', false);
+
+                $('#currency option[value=""]').attr("selected", "selected");
+
+                $('.cost-container').css('display','none');
+                $('.currency-container').css('display','none');
+                hideAllExpenseTables();
             }
         });
 
