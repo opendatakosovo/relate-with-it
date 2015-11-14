@@ -143,7 +143,7 @@ svgFrameNames.forEach(function(la) {
 
 
 imgNames.forEach(function(imgName, ind) {
-    //invisible icons
+    //not-showed icons
     //used later by reference
     d3.select("#mainSvg2 rect")
         .append("image")
@@ -273,12 +273,20 @@ function showPictograms(noSelected, laneName) {
     var total = d3.selectAll("#" + laneName + " use")[0].length - 1;
 
 
-    d3.selectAll("#" + laneName + " use").attr("class", function(d, i) {
+    var pictograms = d3.selectAll("#" + laneName + " use");
+
+    /*pictograms.forEach(function (elTem) {
+        $(elTem).
+    })
+    */
+    pictograms.attr("class", function(d, i) {
 
         if ((total - d) < amountOfDisplayedPictograms) {
+            //TODO delay as animation
+            
             return "iconSelected";
         } else {
-            return "iconPlain";
+            return "iconPlain"; //invisible one
         }
     });
 }
@@ -397,15 +405,22 @@ function unitsNumber (projectValue, unitValue) {
     return result;
 }
  
-// divide by multiplyer if multiplier is greater than 1
+// e.g
+// tempUnit = unitsNumber(1054515454,451);
+// noPict1 = tempUnit.numberOfPictogramsl
+// multiplier = tempUnit.multiplier
+// 
+// - presumption - multiplier will be the same for all of the three diagrams
+// 
+
 var noPict1 = rand(numPicto) ; 
 var noPict2 = rand(numPicto) ;
 var noPict3 = rand(numPicto) ;
 
-
+// only one image will be loaded for all three lanes .eg imgIds[0]
 addLane("#" + svgFrameNames[0], laneName1, 0, 0, "#" + imgIds[0]);
-addLane("#" + svgFrameNames[1], laneName2, 0, 0, "#"+ imgIds[1]);
-addLane("#" + svgFrameNames[2], laneName3, 0, 0, "#"+ imgIds[2]);
+addLane("#" + svgFrameNames[1], laneName2, 0, 0, "#" + imgIds[1]);
+addLane("#" + svgFrameNames[2], laneName3, 0, 0, "#" + imgIds[2]);
 
 
 showPictograms( noPict1, laneName1);
