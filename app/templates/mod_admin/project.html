@@ -66,14 +66,17 @@
                 $('#currency').prop('disabled', true);
 
                 if($('#region').val() === 'Kosovo'){
+                    $('#source_ref').val('');
                     $('#currency option[value="EUR"]').attr("selected", "selected");
                     displayKosovoExpensesTable();
 
-                }else if($('#region').val() === 'Montenegro'){
+                }else if($('#region').val() === 'Montenegro')
+                    $('#source_ref').val('');
                     $('#currency option[value="EUR"]').attr("selected", "selected");
                     displayMontenegroExpensesTable();
 
                 }else if($('#region').val() === 'Serbia'){
+                    $('#source_ref').val('');
                     $('#currency option[value="RSD"]').attr("selected", "selected");
                     displaySerbiaExpensesTable();
                 }
@@ -241,7 +244,5 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
-
-
     </div>
 {% endblock %}
