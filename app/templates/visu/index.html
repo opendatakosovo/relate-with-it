@@ -61,8 +61,11 @@
 
     //specify the number of columns and rows for pictogram layout
     //numCols * numRows = max amount of pictograms
-    var numCols = 3;
+    var numCols = 10;
     var numRows = 15;
+
+    var numPicto = numCols * numRows;
+
 
     //padding for the grid
     var xPadding = 10;
@@ -71,14 +74,27 @@
     //horizontal and vertical spacing between the icons
     var hBuffer = 9;
     var wBuffer = 8;
-
-
-    //generate a d3 range for the total number of required elements
-    var myIndex = d3.range(numCols * numRows);
     
 
+    //generate a d3 range for the total number of required elements
+    var myIndex = d3.range(numPicto);
+    
+    var svgFrameNames = ["mainSvg","mainSvg1","mainSvg2"];
+    var svgFrames = [];
+
+    svgFrameNames.forEach(function(la){
+        var temp = d3.select("body").append("svg")
+        .attr("id", la)
+        .attr("class","svgLane")
+        .attr("viewBox", "0 0 100 150");
+
+        temp.append("rect").attr("width", 100).attr("height", 150);
+
+        svgFrames.push(temp);
+        
+    })
     //create main 'Lanes' element
-    var svgDoc = d3.select("body").append("svg")
+    /*var svgDoc = d3.select("body").append("svg")
         .attr("id","mainSvg")
         .attr("class","svgLane")
         .attr("viewBox", "0 0 100 150");
@@ -92,19 +108,24 @@
         .attr("id","mainSvg2")
         .attr("class","svgLane")
         .attr("viewBox", "0 0 100 150");
-
+    */
+   
     //background rectangle
+    /*
+    
     svgDoc.append("rect").attr("width", 100).attr("height", 150);
     svgDoc1.append("rect").attr("width", 100).attr("height", 150);
     svgDoc2.append("rect").attr("width", 100).attr("height", 150);    
-
+    */
+   
     //define an icon store it in svg <defs> elements as a reusable component - this geometry can be generated from Inkscape, Illustrator or similar
+    /*    
     svgDoc.append("defs")
         .append("g")
         .attr("id", "iconCustom")
         .append("path")
         .attr("d", "M3.5,2H2.7C3,1.8,3.3,1.5,3.3,1.1c0-0.6-0.4-1-1-1c-0.6,0-1,0.4-1,1c0,0.4,0.2,0.7,0.6,0.9H1.1C0.7,2,0.4,2.3,0.4,2.6v1.9c0,0.3,0.3,0.6,0.6,0.6h0.2c0,0,0,0.1,0,0.1v1.9c0,0.3,0.2,0.6,0.3,0.6h1.3c0.2,0,0.3-0.3,0.3-0.6V5.3c0,0,0-0.1,0-0.1h0.2c0.3,0,0.6-0.3,0.6-0.6V2.6C4.1,2.3,3.8,2,3.5,2z");
-
+    */
     //svgDoc.append("img")    
 
     
@@ -143,21 +164,28 @@
         .attr("y", "0")
         .attr("width", "7")
         .attr("height", "10")
-        .attr("xlink:href", "static/img/2.png");    
+        .attr("xlink:href", "static/img/2.png");  
+
+    var img3 = d3.select("#mainSvg rect")        
+        .append("image")
+        .attr("id", "fountanImg")
+        .attr("x", "0")
+        .attr("y", "0")
+        .attr("width", "7")
+        .attr("height", "10")
+        .attr("xlink:href", "static/img/3.png");   
     
 
 
-
-
-    //text element to display number of icons highlighted
-    svgDoc.append("text")
+    svgFrames.forEach(function (el) {
+        el.append("text")
         .attr("id", "txtValue")
         .attr("x", xPadding * 4.2)
         .attr("y", yPadding)
         .attr("dy", -3)
         .text("0");
     
-    svgDoc
+        el    
         .append("use")
         .attr("x", xPadding * 3.5)
         .attr("y", yPadding/4)
@@ -166,17 +194,21 @@
         .attr("xlink:href", "#rentImg")
         .attr('cursor',"hand" )
         .attr('cursor',"pointer" )
-        .on("click",function (d,i) {   
+        .on("click",function () {   
+            var tempElName = el[0][0].id;
+            var tempLaneName = d3.select("#"+tempElName+" g").attr("id");
 
-            var randImg = ["#stadiumImg","#iconCustom","#rentImg"][rand(3)-1]
+            var randImg = ["#stadiumImg","#fountanImg","#rentImg"][rand(3)-1]
         
             d3.select(this).attr("xlink:href", randImg)
-            addLane(laneName1, 0, 0, randImg);
-            showPictograms(rand(45), laneName1);
             
+            addLane(tempElName,tempLaneName, 0, 0, randImg);
+            
+            showPictograms(rand(numPicto), tempLaneName);
+
         });
 
-    //create group element and create an svg <use> element for each icon
+    })    
 
     function addImage (pathToImage) {
         
@@ -184,17 +216,17 @@
 
     }
 
-    function addLane(laneName, xShift, yShift, imgUri) {
+    function addLane(svgFrame,laneName, xShift, yShift, imgUri) {
 
-        var exist = d3.select("#"+laneName);
+        var exist = d3.select(svgFrame + " #"+laneName);
         var temp = exist;
         
         if(exist){
-            exist.remove();
-              
+            exist.remove();              
         } 
         
-        svgDoc.append("g")
+        /*svgDoc*/
+        d3.select(svgFrame).append("g")
             .attr("id", laneName)
             .selectAll(laneName + " use")
             .data(myIndex)
@@ -203,13 +235,12 @@
             .attr("xlink:href", function(d, i) {
 
                 if(imgUri != undefined){
-                    //remove the previous
-                    
+                    //remove the previous                    
                     return imgUri;  
                 } 
 
-                if (laneName == "pictoLayer1") return "#rentImg";
-                return "#iconCustom";
+                /*if (laneName == "pictoLayer1") return "#rentImg";
+                return "#iconCustom";*/
             })
             .attr("id", function(d) {
                 return laneName + "icon" + d;
@@ -230,7 +261,9 @@
 
         var amountOfDisplayedPictograms = noSelected;
 
-        d3.select("#txtValue").text(amountOfDisplayedPictograms);
+        var txtVal = document.getElementById(laneName).parentElement.getElementsByTagName("text");
+
+        d3.select(txtVal[0]).text(amountOfDisplayedPictograms);
 
         //array indexes: 0 to length -1
         var total = d3.selectAll("#" + laneName + " use")[0].length - 1;
@@ -251,18 +284,18 @@
     var laneName2 = "pictoLayer1";
     var laneName3 = "pictoLayer2";
 
-    addLane(laneName1, 0, 0,"#rentImg");
-    addLane(laneName2, 25, 0, "#stadiumImg");
-    addLane(laneName3, 50, 0,"#iconCustom");
+    addLane("#mainSvg",laneName1, 0, 0,"#rentImg");
+    addLane("#mainSvg1",laneName2, 0, 0, "#stadiumImg");
+    addLane("#mainSvg2",laneName3, 0, 0,"#fountanImg");
 
     var rand = function(number) {
         return Math.ceil(Math.random() * number)
     }
 
 
-    showPictograms(rand(45), laneName1);
-    showPictograms(rand(45), laneName2);
-    showPictograms(rand(45), laneName3);
+    showPictograms(rand(numPicto), laneName1);
+    showPictograms(rand(numPicto), laneName2);
+    showPictograms(rand(numPicto), laneName3);
 
     </script>
 
