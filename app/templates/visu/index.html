@@ -1,14 +1,11 @@
-<!doctype html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-    <!--demonstration of using the svg 'use' element to create a pictogram-->
+{% block script %}
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-    <script src="//cdn.jsdelivr.net/jquery.ui.touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-    <style type="text/css">
+{% endblock %}
+
+{% block style %}
+ <style type="text/css">
     #sliderDiv {
         margin: 10px;
         margin-top: 30px;
@@ -22,6 +19,9 @@
         float: left;
         width: 350px;
         height: 550px;
+    }
+    .svgLane{
+        display: inline;
     }
     
     text {
@@ -50,15 +50,27 @@
         stroke:orange;
     }
     </style>
-</head>
+{% endblock %}
+    
+{% block body %}
 
-<body>
     <script>
     //placeholder div for jquery slider
     //d3.select("body").append("div").attr("id", "sliderDiv");
 
     //create svg element
-    var svgDoc = d3.select("body").append("svg").attr("id","mainSvg").attr("viewBox", "0 0 100 150");
+    var svgDoc = d3.select("body").append("svg")
+        .attr("id","mainSvg")
+        .attr("class","svgLane")
+        .attr("viewBox", "0 0 100 150");
+    var svgDoc1 = d3.select("body").append("svg")
+        .attr("id","mainSvg1")
+        .attr("class","svgLane")
+        .attr("viewBox", "0 0 100 150");
+    var svgDoc2 = d3.select("body").append("svg")
+        .attr("id","mainSvg2")
+        .attr("class","svgLane")
+        .attr("viewBox", "0 0 100 150");
 
     //define an icon store it in svg <defs> elements as a reusable component - this geometry can be generated from Inkscape, Illustrator or similar
     svgDoc.append("defs")
@@ -67,25 +79,27 @@
         .append("path")
         .attr("d", "M3.5,2H2.7C3,1.8,3.3,1.5,3.3,1.1c0-0.6-0.4-1-1-1c-0.6,0-1,0.4-1,1c0,0.4,0.2,0.7,0.6,0.9H1.1C0.7,2,0.4,2.3,0.4,2.6v1.9c0,0.3,0.3,0.6,0.6,0.6h0.2c0,0,0,0.1,0,0.1v1.9c0,0.3,0.2,0.6,0.3,0.6h1.3c0.2,0,0.3-0.3,0.3-0.6V5.3c0,0,0-0.1,0-0.1h0.2c0.3,0,0.6-0.3,0.6-0.6V2.6C4.1,2.3,3.8,2,3.5,2z");
 
-    /*var img1 = d3.select("body").append("svg").attr("viewBox", "0 0 100 150")
-        .attr("id", "image1")
+    var img1 = d3.select("body").append("svg")
+        .attr("viewBox", "0 0 100 150")
+        .attr("id", "rentImg")
         .append("image")
         .attr("x", "0")
         .attr("y", "0")
         .attr("width", "7")
-        .attr("height", "10");*/
+        .attr("height", "10")
+        .attr("xlink:href", "static/img/1.png");
 
-    //.attr("xlink:href", "static/img/rent.svg");
-
+    /* svg image */
+    /*
     d3.xml("static/img/rent1.svg", "image/svg+xml", function(xml) {
         var img = document.importNode(xml.documentElement, true);
-        d3.select(/*"#image1"*/"body")[0][0].appendChild(img);
+        d3.select("body")[0][0].appendChild(img);
         d3.select("#rentImg")
             .attr("class","pictogram")
             .attr("width","7px")
-            .attr("height","10px");
-            
+            .attr("height","10px");            
     })
+    */
 
     /*
     http://edutechwiki.unige.ch/en/Using_SVG_with_HTML5_tutorial#Importing_with_original_size_and_create_a_viewBox
@@ -190,6 +204,4 @@
     showPictograms(rand(), laneName3);
     </script>
     <p>Based on <a href="http://bl.ocks.org/alansmithy/d832fc03f6e6a91e99f4">pictogram grid</a></p>
-</body>
-
-</html>
+{% endblock %}
