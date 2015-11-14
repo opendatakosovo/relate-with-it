@@ -9,14 +9,24 @@
     $( document ).ready(function() {
 
         var montenegroExpensesRetrieved = false;
+        var serbiaExpensesRetrieved = false;
 
         var montenegroExpensesTable = $( "#montenegro-expenses-table" ).DataTable( {
             dom: 'T<"clear">lfrtip',
             tableTools: {
                 "sRowSelect": "multi",
-                "aButtons": [ "select_all", "select_none" ]
+                "aButtons": []
             }
         });
+
+        var serbiaExpensesTable = $( "#serbia-expenses-table" ).DataTable( {
+            dom: 'T<"clear">lfrtip',
+            tableTools: {
+                "sRowSelect": "multi",
+                "aButtons": []
+            }
+        });
+
 
         // Submit the form
         $('.btn-create-project').click(function(){
@@ -26,14 +36,22 @@
         // On row click, calculate the current cost.
         $('#montenegro-expenses-table').on('click', 'tr', function(event) {
             var cost = parseFloat(montenegroExpensesTable.row( this ).data()[3])
+            calculateNewCost(cost);
+        });
 
+        $('#serbia-expenses-table').on('click', 'tr', function(event) {
+            var cost = parseFloat(serbiaExpensesTable.row( this ).data()[3])
+            calculateNewCost(cost, $(this));
+        });
+
+        function calculateNewCost(cost, row){
             var newCost = 0;
             var currentCost = $('#cost').val();
             if(currentCost == undefined || currentCost === '' || currentCost === NaN){
                 currentCost = 0.0;
             }
 
-            if($(this).hasClass('selected')){
+            if(row.hasClass('selected')){
                newCost = parseFloat(currentCost) + cost;
             }else{
                newCost = parseFloat(currentCost) - cost;
@@ -44,7 +62,7 @@
             }
 
             $('#cost').val(newCost);
-        });
+        }
 
         $( "#source_type" ).change(function() {
             if($( "#source_type" ).val() === 'Link'){
@@ -134,7 +152,31 @@
         }
 
         function displaySerbiaExpensesTable(){
-            console.log('todo: render serbia expense table.')
+            if(serbiaExpensesRetrieved == false){
+                $.getJSON( "{{ url_for('api.expenses', region='serbia', dataset='consolidated-expenses-2010') }}", function(results) {
+                    $.each(results, function(idx, result) {
+                        serbiaExpensesTable.row.add([
+                            result.activity.id,
+                            result.region.subregion.name,
+                            result.activity.description,
+                            result.cost
+                        ]).draw();
+                    });
+                })
+                .done(function() {
+                    serbiaExpensesRetrieved = true;
+                    $('.kosovo-expenses-row').css('display', 'none');
+                    $('.montenegro-expenses-row').css('display', 'none');
+                    $('.serbia-expenses-row').css('display', 'block');
+                })
+                .fail(function() {
+                    console.log( "error" );
+                })
+            }else{
+                $('.kosovo-expenses-row').css('display', 'none');
+                $('.montenegro-expenses-row').css('display', 'none');
+                $('.serbia-expenses-row').css('display', 'block');
+            }
         }
 
         function hideAllExpenseTables(){
@@ -198,12 +240,14 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <table id="kosovo-expenses-table" class="display" cellspacing="0" width="100%">
-                            <tr>
-                                <th>ID</th>
-                                <th>Year</th>
-                                <th>Activity</th>
-                                <th>Cost</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Year</th>
+                                    <th>Activity</th>
+                                    <th>Cost</th>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                 </div>
@@ -237,18 +281,20 @@
         <div class="row serbia-expenses-row" style="display:none;padding-top:25px;">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Serbia Open Dataset</h3>
+                    <h3 class="panel-title">Consolidated Expenses (2010)</h3>
                 </div>
 
                 <div class="panel-body">
                     <div class="col-md-12">
                         <table id="serbia-expenses-table" class="display" cellspacing="0" width="100%">
-                            <tr>
-                                <th>ID</th>
-                                <th>Year</th>
-                                <th>Activity</th>
-                                <th>Cost</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Municipality</th>
+                                    <th>Activity</th>
+                                    <th>Cost</th>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                 </div>

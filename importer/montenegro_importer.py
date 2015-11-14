@@ -27,9 +27,9 @@ class MontenegroImporter(AbstractImporter):
         for idx, year in enumerate(years):
 
             # Clean expense string so that is is numerical (e.g. turn blank string to 0).
-            expense = row[2 + idx].replace(',', '')
-            if not expense.strip():
-                expense = 0
+            cost = row[2 + idx].replace(',', '')
+            if not cost.strip():
+                cost = 0
 
             # Create doc.
             doc = {
@@ -45,7 +45,7 @@ class MontenegroImporter(AbstractImporter):
                     'id': int(row[0]),
                     'description': row[1]
                 },
-                'cost': float(expense),
+                'cost': float(cost),
                 'year': year
             }
 
