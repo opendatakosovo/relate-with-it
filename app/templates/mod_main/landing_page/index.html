@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
 	<button href="#choose-params-modal" class="portfolio-link" data-toggle="modal">Open Modal</button>
-
+	{% include '/visu/index.html' %}
 
 	<div class="portfolio-modal modal fade in" id="choose-params-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
         <div class="modal-content">
@@ -15,15 +15,52 @@
 				<div class="row">
 					<div class="unit-section col-md-5">
 						<h1>Unit</h1>
-							<section>
-								<figure class="stack-grid stack-sidegrid active">
-									<img id="4" class="unit-item item4 image400x400" src="{{ url_for('static', filename='img/4.png') }}" alt="img01">
-									<img id="3" class="unit-item item3 image400x400" src="{{ url_for('static', filename='img/3.png') }}" alt="img02">
-									<img id="2" class="unit-item item2 image400x400" src="{{ url_for('static', filename='img/2.png') }}" alt="img03">
-									<img id="1" class="unit-item item1 image400x400" src="{{ url_for('static', filename='img/1.png') }}" alt="img04">
-								</figure>
-							</section>
-							<script src="{{ url_for('static', filename='js/unit.js') }}"></script>
+						<div id="fc-slideshow" class="fc-slideshow">
+							<ul class="fc-slides">
+								<li>
+									<section>
+										<figure class="stack-grid stack-sidegrid active">
+											<img id="4" class="unit-item item4 image400x400" src="{{ url_for('static', filename='img/4.png') }}" alt="img01">
+											<img id="3" class="unit-item item3 image400x400" src="{{ url_for('static', filename='img/3.png') }}" alt="img02">
+											<img id="2" class="unit-item item2 image400x400" src="{{ url_for('static', filename='img/2.png') }}" alt="img03">
+											<img id="1" class="unit-item item1 image400x400" src="{{ url_for('static', filename='img/1.png') }}" alt="img04">
+										</figure>
+									</section>
+								</li>
+								<li>
+									<section>
+										<figure class="stack-grid stack-sidegrid active">
+											<img id="4" class="unit-item item4 image400x400" src="{{ url_for('static', filename='img/4.png') }}" alt="img01">
+											<img id="3" class="unit-item item3 image400x400" src="{{ url_for('static', filename='img/3.png') }}" alt="img02">
+											<img id="2" class="unit-item item2 image400x400" src="{{ url_for('static', filename='img/2.png') }}" alt="img03">
+											<img id="1" class="unit-item item1 image400x400" src="{{ url_for('static', filename='img/1.png') }}" alt="img04">
+										</figure>
+									</section>
+								</li>
+								<li>
+									<section>
+										<figure class="stack-grid stack-sidegrid active">
+											<img id="4" class="unit-item item4 image400x400" src="{{ url_for('static', filename='img/4.png') }}" alt="img01">
+											<img id="3" class="unit-item item3 image400x400" src="{{ url_for('static', filename='img/3.png') }}" alt="img02">
+											<img id="2" class="unit-item item2 image400x400" src="{{ url_for('static', filename='img/2.png') }}" alt="img03">
+											<img id="1" class="unit-item item1 image400x400" src="{{ url_for('static', filename='img/1.png') }}" alt="img04">
+										</figure>
+									</section>
+								</li>
+							</ul>
+							<nav>
+								<div class="fc-left">
+									<i class="icon-arrow-left"></i>
+								</div>
+								<div class="fc-right">
+									<i class="icon-arrow-right"></i>
+								</div>
+							</nav>
+						</div>
+
+
+						<script src="{{ url_for('static', filename='js/unit.js') }}"></script>
+						<script src="{{ url_for('static', filename='js/jquery.flipshow.js') }}"></script>
 					</div>
 					<div class="hajde col-md-2">
 						<a href="#"><img class="hajde-button img-responsive img-center" width=100px; src="{{ url_for('static', filename='img/hajde.png') }}"></a>
@@ -45,4 +82,18 @@
 			<button class="btn-modal btn-warning" type="button" class="btn btn-large">Hajde!</button>
         </div>
     </div>
+	<script>
+	$( function() {
+
+		$( '#fc-slideshow' ).flipshow();
+
+	} );
+	// the options
+	$.Flipshow.defaults = {
+		// default transition speed (ms)
+		speed : 700,
+		// default transition easing
+		easing : 'cubic-bezier(.29,1.44,.86,1.06)'
+	};
+	</script>
 {% endblock %}
