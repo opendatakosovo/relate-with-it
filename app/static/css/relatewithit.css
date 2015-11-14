@@ -3,24 +3,23 @@
     font-weight: normal;
 }
 .unit-section{
-	height:100%;
-	background-color:#5cc2f1
+	background-color:#5cc2f1;
+    min-height:750px;
 
 }
 .project-section{
 	background-color:#fff59d;
-	height:100%;
+	min-height:750px;
 }
 .header{
 	background-color:#3f51b5;
 	width:100%;
 	height:80px;
 	color:white;
-
 }
 .hajde {
     background: linear-gradient(to right, #5cc2f1 0%,#5cc2f1 50%,#000000 50%,#fff59d 50%,#fff59d 100%);
-    height: 100%;
+    min-height:750px;
 }
 .hajde-button {
     width: 100px;
@@ -34,11 +33,26 @@
 }
 #choose-params-modal {
     padding-left: 0 !important;
-    height: 100% !important;
+    height: 100%;
 }
 
 .image400x400 {
     width: 400px;
     height: 400px;
     position: absolute !important;
+}
+.btn-modal{
+    width:100%;
+    height:50px;
+    display:none;
+}
+@media screen and (max-width: 1000px) {
+    .hajde {
+        display:none;
+    }
+    .btn-modal{
+        width:100%;
+        height:50px;
+        display:block;
+    }
 }
