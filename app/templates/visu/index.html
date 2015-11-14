@@ -1,22 +1,18 @@
-{% extends "layout.html" %} {% block script %}
-<script src="http://d3js.org/d3.v3.min.js"></script>
-{% endblock %} {% block style %}
-<style type="text/css">
-#sliderDiv {
-    margin: 10px;
-    margin-top: 30px;
-    height: 15px;
-    width: 350px;
-}
+{% extends "layout.html" %} 
 
-#mainSvg {}
+{% block script %}
+<script src="http://d3js.org/d3.v3.min.js"></script>
+{% endblock %} 
+
+{% block style %}
+<style type="text/css">
 
 .svgLane {
     display: inline;
-    width: 350px;
-    height: 550px;
+    width: 30vw;
+    height: 85vh;/* 550px; */
     overflow: none;
-    padding: 10px;
+    padding: 5px;
     float: left;
 }
 
@@ -46,17 +42,47 @@ rect {
     fill: orange;
     stroke: orange;
 }
+
+#visu {
+    height: 100vh;
+}
+
+@media screen and (max-width: 800px) {
+   
+
+    .svgLane {
+      
+        width: 80vw;
+        height: 95vh;/* 550px; */
+        padding: 5px;
+        float: left;
+        margin: 0 6vw;
+    }
+}
 </style>
-{% endblock %} {% block body %}
+{% endblock %} 
+
+{% block body %}
+
+<div id="visu"> </div>
+
+<div>
+    <p>Based on <a href="http://bl.ocks.org/alansmithy/d832fc03f6e6a91e99f4">pictogram grid</a></p>
+</div>
 
 <script>
+
+
+/*
+    dependinding on screen size, icon should have width and height
+*/
+
 //specify the number of columns and rows for pictogram layout
-//numCols * numRows = max amount of pictograms
 var numCols = 10;
 var numRows = 15;
 
+//numCols * numRows = max amount of pictograms
 var numPicto = numCols * numRows;
-
 
 //padding for the grid
 var xPadding = 10;
@@ -74,12 +100,19 @@ var svgFrameNames = ["mainSvg", "mainSvg1", "mainSvg2"];
 var svgFrames = [];
 
 svgFrameNames.forEach(function(la) {
-    var temp = d3.select("body").append("svg")
-        .attr("id", la)
-        .attr("class", "svgLane")
-        .attr("viewBox", "0 0 100 150");
+    var temp = d3.select("#visu")
+        .append("div")
+        .classed("col-md-4",true)
+        // /.classed("container-svg",true)
+        //.attr("style","height:100vh")
+        //.attr("style","margin-left:25vw")
+            
+            .append("svg")
+                .attr("id", la)
+                .attr("class", "svgLane")
+                .attr("viewBox", "0 0 100 150");
 
-    temp.append("rect").attr("width", 100).attr("height", 150);
+    temp.append("rect").attr("width", "100%").attr("height", "100%");
 
     svgFrames.push(temp);
 
@@ -128,9 +161,8 @@ svgFrames.forEach(function(el, index) {
             var tempElName = el[0][0].id;
             var tempLaneName = d3.select("#" + tempElName + " g").attr("id");
 
-            var randImg = 
-                ["#stadiumImg", "#fountanImg", "#rentImg"][rand(3) - 1]
-            var tempNumPicto = rand(numPicto);    
+            var randImg = ["#stadiumImg", "#fountanImg", "#rentImg"][rand(3) - 1]
+            var tempNumPicto = rand(numPicto);
 
             d3.select(this).attr("xlink:href", randImg)
 
@@ -184,8 +216,8 @@ function showPictograms(noSelected, laneName) {
 
     //text should be in separete function
     var txtVal = document.getElementById(laneName)
-                    .parentElement
-                    .getElementsByTagName("text")[0];
+        .parentElement
+        .getElementsByTagName("text")[0];
 
     d3.select(txtVal).text(amountOfDisplayedPictograms);
 
@@ -218,13 +250,8 @@ addLane("#mainSvg", laneName1, 0, 0, "#rentImg");
 addLane("#mainSvg1", laneName2, 0, 0, "#stadiumImg");
 addLane("#mainSvg2", laneName3, 0, 0, "#fountanImg");
 
-
-
-
 showPictograms(rand(numPicto), laneName1);
 showPictograms(rand(numPicto), laneName2);
 showPictograms(rand(numPicto), laneName3);
-
 </script>
-<p>Based on <a href="http://bl.ocks.org/alansmithy/d832fc03f6e6a91e99f4">pictogram grid</a></p>
 {% endblock %}
