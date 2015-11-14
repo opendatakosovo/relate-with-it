@@ -9,6 +9,17 @@
             }else{
                 $('#source_ref').val('');
                 $('.source-ref-container').css('visibility','hidden');
+
+                if($('#region').val() === 'Montenegro'){
+
+                    $.getJSON( "{{ url_for('api.expenses', region='montenegro', dataset='national-budget-execution') }}", function(response) {
+                        // Build result table
+                    })
+                    .fail(function() {
+                        console.log( "error" );
+                    })
+
+                }
             }
         });
 
@@ -66,6 +77,21 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <table id="currencies-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Activity</th>
+                        <th>Expense</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
 {% endblock %}

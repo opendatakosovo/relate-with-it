@@ -1,4 +1,5 @@
 from abstract_importer import AbstractImporter
+from slugify import slugify
 
 class MontenegroImporter(AbstractImporter):
 
@@ -32,8 +33,14 @@ class MontenegroImporter(AbstractImporter):
 
             # Create doc.
             doc = {
-                'region': self.get_region(),
-                'dataset': self.get_dataset(),
+                'region': {
+                    'name': self.get_region(),
+                    'slug': slugify(self.get_region(), to_lower=True)
+                },
+                'dataset': {
+                    'name': self.get_dataset(),
+                    'slug': slugify(self.get_dataset(), to_lower=True)
+                },
                 'activity': {
                     'id': int(row[0]),
                     'description': row[1]
@@ -46,6 +53,6 @@ class MontenegroImporter(AbstractImporter):
             docs.append(doc)
 
             # Console output to provide user with feedback on status of importing process.
-            print '%s - %s: %s (%i)' % (doc['activity']['id'], doc['activity']['description'], doc['expense'], doc['year'])
+            print '%s - %s: %s (%s %i)' % (doc['activity']['id'], doc['activity']['description'], doc['expense'], doc['region']['name'], doc['year'])
 
         return docs
