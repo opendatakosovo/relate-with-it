@@ -58,10 +58,26 @@
 {% block body %}
 
     <script>
-    //placeholder div for jquery slider
-    //d3.select("body").append("div").attr("id", "sliderDiv");
 
-    //create svg element
+    //specify the number of columns and rows for pictogram layout
+    //numCols * numRows = max amount of pictograms
+    var numCols = 3;
+    var numRows = 15;
+
+    //padding for the grid
+    var xPadding = 10;
+    var yPadding = 15;
+
+    //horizontal and vertical spacing between the icons
+    var hBuffer = 9;
+    var wBuffer = 8;
+
+
+    //generate a d3 range for the total number of required elements
+    var myIndex = d3.range(numCols * numRows);
+    
+
+    //create main 'Lanes' element
     var svgDoc = d3.select("body").append("svg")
         .attr("id","mainSvg")
         .attr("class","svgLane")
@@ -120,24 +136,16 @@
         .attr("height", "10")
         .attr("xlink:href", "static/img/1.png");
 
+    var img2 = d3.select("#mainSvg1 rect")        
+        .append("image")
+        .attr("id", "stadiumImg")
+        .attr("x", "0")
+        .attr("y", "0")
+        .attr("width", "7")
+        .attr("height", "10")
+        .attr("xlink:href", "static/img/2.png");    
     
 
-    //specify the number of columns and rows for pictogram layout
-    //numCols * numRows = max amount of pictograms
-    var numCols = 3;
-    var numRows = 15;
-
-    //padding for the grid
-    var xPadding = 10;
-    var yPadding = 15;
-
-    //horizontal and vertical spacing between the icons
-    var hBuffer = 9;
-    var wBuffer = 8;
-
-
-    //generate a d3 range for the total number of required elements
-    var myIndex = d3.range(numCols * numRows);
 
 
 
@@ -158,8 +166,14 @@
         .attr("xlink:href", "#rentImg")
         .attr('cursor',"hand" )
         .attr('cursor',"pointer" )
-        .on("click",function (d,i) {
-            alert("Switch image")
+        .on("click",function (d,i) {   
+
+            var randImg = ["#stadiumImg","#iconCustom","#rentImg"][rand(3)-1]
+        
+            d3.select(this).attr("xlink:href", randImg)
+            addLane(laneName1, 0, 0, randImg);
+            showPictograms(rand(45), laneName1);
+            
         });
 
     //create group element and create an svg <use> element for each icon
@@ -170,8 +184,16 @@
 
     }
 
-    function addLane(laneName, xShift, yShift) {
+    function addLane(laneName, xShift, yShift, imgUri) {
 
+        var exist = d3.select("#"+laneName);
+        var temp = exist;
+        
+        if(exist){
+            exist.remove();
+              
+        } 
+        
         svgDoc.append("g")
             .attr("id", laneName)
             .selectAll(laneName + " use")
@@ -179,6 +201,13 @@
             .enter()
             .append("use")
             .attr("xlink:href", function(d, i) {
+
+                if(imgUri != undefined){
+                    //remove the previous
+                    
+                    return imgUri;  
+                } 
+
                 if (laneName == "pictoLayer1") return "#rentImg";
                 return "#iconCustom";
             })
@@ -222,18 +251,18 @@
     var laneName2 = "pictoLayer1";
     var laneName3 = "pictoLayer2";
 
-    addLane(laneName1, 0, 0);
-    addLane(laneName2, 25, 0);
-    addLane(laneName3, 50, 0);
+    addLane(laneName1, 0, 0,"#rentImg");
+    addLane(laneName2, 25, 0, "#stadiumImg");
+    addLane(laneName3, 50, 0,"#iconCustom");
 
-    var rand = function() {
-        return Math.ceil(Math.random() * 45)
+    var rand = function(number) {
+        return Math.ceil(Math.random() * number)
     }
 
 
-    showPictograms(rand(), laneName1);
-    showPictograms(rand(), laneName2);
-    showPictograms(rand(), laneName3);
+    showPictograms(rand(45), laneName1);
+    showPictograms(rand(45), laneName2);
+    showPictograms(rand(45), laneName3);
 
     </script>
 
