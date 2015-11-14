@@ -18,7 +18,12 @@
             }
         });
 
+        // Submit the form
+        $('.btn-create-project').click(function(){
+            document.getElementById("form-create-project").submit();
+        });
 
+        // On row click, calculate the current cost.
         $('#montenegro-expenses-table').on('click', 'tr', function(event) {
             var cost = parseFloat(montenegroExpensesTable.row( this ).data()[3])
 
@@ -52,9 +57,9 @@
 
                 $('#currency option[value=""]').attr("selected", "selected");
 
-                $('#region').prop('disabled', true);
-                $('#cost').prop('disabled', false);
-                $('#currency').prop('disabled', false);
+                $('#region').prop('readonly', 'readonly');
+                $('#cost').removeProp('readonly');
+                $('#currency').removeProp('readonly');
 
                 hideAllExpenseTables();
 
@@ -66,9 +71,9 @@
                 $('.cost-container').css('display','block');
                 $('.currency-container').css('display','block');
 
-                $('#region').prop('disabled', true);
-                $('#cost').prop('disabled', true);
-                $('#currency').prop('disabled', true);
+                //$('#region').prop('readonly', 'readonly');
+                $('#cost').prop('readonly', 'readonly');
+                //$('#currency').prop('readonly', 'readonly');
 
                 if($('#region').val() === 'Kosovo'){
                     $('#source_ref').val('https://github.com/opendatakosovo/relate-with-it/tree/master/importer/data/kosovo');
@@ -86,7 +91,7 @@
                     displaySerbiaExpensesTable();
                 }
             }else{
-                $('#region').prop('disabled', false);
+                //$('#region').removeProp('readonly');
 
                 $('#currency option[value=""]').attr("selected", "selected");
 
@@ -149,7 +154,7 @@
                 </div>
                 <div class="panel-body"  style="padding-left:20%; padding-right: 20%">
                     <div class="col-md-12">
-                        <form action="{{ url_for('admin.project') }}" method="POST" class="form-horizontal">
+                        <form id="form-create-project" action="{{ url_for('admin.project') }}" method="POST" class="form-horizontal">
                             <div class="form-group">
                                 {{ form.name.label() }}
                                 {{ form.name(class='form-control') }}
@@ -252,7 +257,7 @@
 
         <div class="row button-row" style="padding-top:25px; padding-bottom:50px;">
             <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary btn-create-project">Submit</button>
             </div>
         </div>
     </div>

@@ -79,7 +79,7 @@
                                 {% if project.source.type == 'Link' %}
                                     <a href="{{ project.source.reference }}" target="_blank">{{ project.source.type }}</a>
                                 {% else %}
-                                    {{ project.source.type }}
+                                    <a href="{{ project.source.reference }}" target="_blank">MoD</a>
                                 {% endif %}
                                 </td>
                             </tr>
