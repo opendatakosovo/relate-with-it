@@ -4,9 +4,9 @@
 4. multiply svgViewBoxes - 'columns'+
 5. different pictograms to use +
 6. three independent 'lanes' + 
-7. "title" with picture above every column 
+7. "title" with picture above every column +
 8. switch with click on column icon +
-9. one type of pictogram in one lane
+9. one type of pictogram in one lane +
 
 
 * some effects on showing new pictograms
