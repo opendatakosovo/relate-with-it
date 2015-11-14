@@ -45,7 +45,7 @@ class MontenegroImporter(AbstractImporter):
                     'id': int(row[0]),
                     'description': row[1]
                 },
-                'expense': float(expense),
+                'cost': float(expense),
                 'year': year
             }
 
@@ -53,6 +53,6 @@ class MontenegroImporter(AbstractImporter):
             docs.append(doc)
 
             # Console output to provide user with feedback on status of importing process.
-            print '%s - %s: %s (%s %i)' % (doc['activity']['id'], doc['activity']['description'], doc['expense'], doc['region']['name'], doc['year'])
+            print '%s - %s: %s (%s %i)' % (doc['activity']['id'], doc['activity']['description'], doc['cost'], doc['region']['name'], doc['year'])
 
         return docs

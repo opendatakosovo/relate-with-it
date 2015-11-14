@@ -3,95 +3,184 @@
     <script>
     $( document ).ready(function() {
 
-        $( "#source_type" ).change(function() {
-            if($( "#source_type" ).val() === 'Link'){
-                $('.source-ref-container').css('visibility','visible');
-            }else{
-                $('#source_ref').val('');
-                $('.source-ref-container').css('visibility','hidden');
-
-                if($('#region').val() === 'Montenegro'){
-
-                    $.getJSON( "{{ url_for('api.expenses', region='montenegro', dataset='national-budget-execution') }}", function(response) {
-                        // Build result table
-                    })
-                    .fail(function() {
-                        console.log( "error" );
-                    })
-
-                }
+        var montenegroExpensesRetrieved = false;
+var selected = [];
+        var montenegroExpensesTable = $( "#montenegro-expenses-table" ).DataTable( {
+            dom: 'T<"clear">lfrtip',
+            tableTools: {
+                "sRowSelect": "multi",
+                "aButtons": [ "select_all", "select_none" ]
             }
         });
+
+        $( "#source_type" ).change(function() {
+            if($( "#source_type" ).val() === 'Link'){
+                $('#cost').val('');
+
+                $('.source-ref-container').css('display','block');
+                $('.cost-container').css('display','block');
+                $('.currency-container').css('display','block');
+
+                $('#cost').prop('disabled', false);
+                $('#currency').prop('disabled', false);
+
+                hideAllExpenseTables();
+
+            }else if($( "#source_type" ).val() === 'Open Data'){
+                $('#source_ref').val('');
+                $('#cost').val('');
+                $('#currency').val('');
+
+                $('.source-ref-container').css('display','none');
+                $('.cost-container').css('display','block');
+                $('.currency-container').css('display','block');
+
+                $('#cost').prop('disabled', true);
+                $('#currency').prop('disabled', true);
+
+                if($('#region').val() === 'Kosovo'){
+                    displayKosovoExpensesTable();
+
+                }else if($('#region').val() === 'Montenegro'){
+                    displayMontenegroExpensesTable();
+
+                }else if($('#region').val() === 'Serbia'){
+                    displaySerbiaExpensesTable();
+                }
+            }else{
+                 hideAllExpenseTables();
+            }
+        });
+
+        function displayKosovoExpensesTable(){
+            console.log('todo: render kosovo expense table.')
+        }
+
+        function displayMontenegroExpensesTable(){
+            if(montenegroExpensesRetrieved == false){
+                $.getJSON( "{{ url_for('api.expenses', region='montenegro', dataset='national-budget-execution') }}", function(results) {
+                    $.each(results, function(idx, result) {
+                        montenegroExpensesTable.row.add([
+                            result.activity.id,
+                            result.year,
+                            result.activity.description,
+                            result.cost
+                        ]).draw();
+                    });
+                })
+                .done(function() {
+                    montenegroExpensesRetrieved = true;
+                    $('.kosovo-expenses-row').css('display', 'none');
+                    $('.montenegro-expenses-row').css('display', 'block');
+                    $('.serbia-expenses-row').css('display', 'none');
+                })
+                .fail(function() {
+                    console.log( "error" );
+                })
+            }else{
+                $('.kosovo-expenses-row').css('display', 'none');
+                $('.montenegro-expenses-row').css('display', 'block');
+                $('.serbia-expenses-row').css('display', 'none');
+            }
+        }
+
+        function displaySerbiaExpensesTable(){
+            console.log('todo: render serbia expense table.')
+        }
+
+        function hideAllExpenseTables(){
+            $('.kosovo-expenses-row').css('display', 'none');
+            $('.montenegro-expenses-row').css('display', 'none');
+            $('.serbia-expenses-row').css('display', 'none');
+        }
 
     });
     </script>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <form action="{{ url_for('admin.project') }}" method="POST" class="form-horizontal">
-                <div class="form-group">
-                    {{ form.region.label(class="control-label col-xs-5") }}
-                    <div class="col-xs-7">
-                         {{ form.region(class='form-control') }}
+            <div class="col-md-12" style="padding-left:25%; padding-right: 25%">
+                <form action="{{ url_for('admin.project') }}" method="POST" class="form-horizontal">
+                    <div class="form-group">
+                        {{ form.name.label() }}
+                        {{ form.name(class='form-control') }}
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ form.name.label(class="control-label col-xs-5") }}
-                    <div class="col-xs-7">
-                         {{ form.name(class='form-control') }}
+                    <div class="form-group">
+                        {{ form.description.label() }}
+                        {{ form.description(class='form-control') }}
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ form.description.label(class="control-label col-xs-5") }}
-                    <div class="col-xs-7">
-                         {{ form.description(class='form-control') }}
+                    <div class="form-group">
+                        {{ form.region.label() }}
+                        {{ form.region(class='form-control') }}
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ form.cost.label(class="control-label col-xs-5") }}
-                    <div class="col-xs-7">
-                         {{ form.cost(class='form-control') }}
+                    <div class="form-group">
+                        {{ form.source_type.label() }}
+                        {{ form.source_type(class='form-control') }}
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ form.currency.label(class="control-label col-xs-5") }}
-                    <div class="col-xs-7">
-                         {{ form.currency(class='form-control') }}
+                    <div class="form-group source-ref-container" style="display:none;">
+                        {{ form.source_ref.label() }}
+                        {{ form.source_ref(class='form-control') }}
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ form.source_type.label(class="control-label col-xs-5") }}
-                    <div class="col-xs-7">
-                         {{ form.source_type(class='form-control') }}
+                    <div class="form-group cost-container" style="display:none;">
+                        {{ form.cost.label() }}
+                        {{ form.cost(class='form-control') }}
                     </div>
-                </div>
-                <div class="form-group source-ref-container" style="visibility:hidden;">
-                    {{ form.source_ref.label(class="control-label col-xs-5") }}
-                    <div class="col-xs-7">
-                         {{ form.source_ref(class='form-control') }}
+                    <div class="form-group currency-container" style="display:none;">
+                        {{ form.currency.label() }}
+                        {{ form.currency(class='form-control') }}
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-offset-5 col-xs-7">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <table id="currencies-table" class="display" cellspacing="0" width="100%">
-                <thead>
+        <div class="row kosovo-expenses-row" style="display:none;padding-top:25px;">
+            <div class="col-md-12">
+                <table id="kosovo-expenses-table" class="display" cellspacing="0" width="100%">
                     <tr>
-                        <th></th>
                         <th>ID</th>
+                        <th>Year</th>
                         <th>Activity</th>
-                        <th>Expense</th>
+                        <th>Cost</th>
                     </tr>
-                </thead>
-            </table>
+                </table>
+            </div>
         </div>
+
+        <div class="row montenegro-expenses-row" style="display:none;padding-top:25px;">
+            <div class="col-md-12">
+                <table id="montenegro-expenses-table" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Year</th>
+                            <th>Activity</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                </table>
+		    </div>
+        </div>
+
+
+        <div class="row serbia-expenses-row" style="display:none;padding-top:25px;">
+            <div class="col-md-12">
+                <table id="serbia-expenses-table" class="display" cellspacing="0" width="100%">
+                    <tr>
+                        <th>ID</th>
+                        <th>Year</th>
+                        <th>Activity</th>
+                        <th>Cost</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row button-row" style="padding-top:25px;">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+
     </div>
 {% endblock %}
