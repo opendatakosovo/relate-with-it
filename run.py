@@ -1,6 +1,5 @@
 import argparse
 
-from flask.ext.pymongo import PyMongo
 from app import create_app
 
 # Create the flask app.
