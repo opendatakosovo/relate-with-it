@@ -10,7 +10,8 @@
 10. bootstrap columns +-
 11. put it on the front page + Partin did it
 12. define value adding functions
-13. add multiplyer on icons
+13. add multiplyer on icons +
+
 
 
 * some effects on showing new pictograms

@@ -117,11 +117,7 @@ var svgFrames = [];
 svgFrameNames.forEach(function(la) {
     var temp = d3.select("#visu")
         .append("div")
-        .classed("col-md-4",true)
-        // /.classed("container-svg",true)
-        //.attr("style","height:100vh")
-        //.attr("style","margin-left:25vw")
-            
+        .classed("col-md-4",true)            
             .append("svg")
                 .attr("id", la)
                 .attr("class", "svgLane")
@@ -169,14 +165,13 @@ svgFrames.forEach(function(el, index) {
         .attr("dy", -3)
         .attr("dx", 5)
         .attr("xlink:href", function(d, i) {
-            console.log(index)
             return "#" + imgIds[index];
         })
         .attr('cursor', "hand")
         .attr('cursor', "pointer")
         .on("click", function() {
             var tempElName = el[0][0].id;
-            var tempLaneName = d3.select("#" + tempElName + " g").attr("id");
+            var tempLaneName = d3.select("#" + tempElName + " g[id]").attr("id");
 
             var randImg = ["#stadiumImg", "#fountanImg", "#rentImg"][rand(3) - 1]
             var tempNumPicto = rand(numPicto);
@@ -190,8 +185,9 @@ svgFrames.forEach(function(el, index) {
 
         });
 
-    var multiplyer = "1k";          
-           
+    var multiplyer = "10"; 
+    
+    
 
     el.select("g")
             .append("text") 
@@ -214,8 +210,7 @@ svgFrames.forEach(function(el, index) {
                 .attr("dx", -5)
                 .attr("style",'font-size:3px' )
                 .attr("class",function (d,i) {
-                    console.log(this)
-
+                    
                     d3.select(this).attr("class",'');
                     var klas = this.parentElement
                         .getElementsByTagName("use")[0]
@@ -223,8 +218,8 @@ svgFrames.forEach(function(el, index) {
                     return klas[0];    
                     
                 })
-                .text("x"+multiplyer);     
-
+                .text("x "+multiplyer);     
+    
 })
 
 function removeLane(laneName) {
