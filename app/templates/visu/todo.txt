@@ -11,7 +11,7 @@
 11. put it on the front page + Partin did it
 12. define value adding functions
 13. add multiplyer on icons +
-
+14. animation - falling or revealing
 
 
 * some effects on showing new pictograms
