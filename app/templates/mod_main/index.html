@@ -4,10 +4,11 @@
 <script>
     $( document ).ready(function() {
         $( ".btn-hajde" ).click(function() {
-            var currencySlug = $('.stack-currency .stack__item--current img').attr('data-slug');
             var projectSlug = $('.stack-project .stack__item--current img').attr('data-slug');
+            var currencySlug = $('.stack-currency .stack__item--current img').attr('data-slug');
 
             var href = "{{ url_for('main.visualizer', project_slug='project-slug', currency_slug='currency-slug') }}";
+            href = href.replace('project-slug', projectSlug).replace('currency-slug', currencySlug)
 
             document.location.href = href;
         });
@@ -153,11 +154,11 @@
     <div class="row">
         <div class="unit-section content col-md-5">
             <h1>Project</h1>
-            <ul id="stack_krisna" class="stack stack--krisna">
+            <ul id="stack_krisna" class="stack stack--krisna stack-project">
                 {% for project in  projects%}
                 <li class="stack__item">
                     <h4>{{ project.name }}</h4>
-                    <img src="{{ url_for('static', filename='img/'+loop.index|safe+'.png') }}" alt="{{ project.name }}" />
+                    <img src="{{ project.imageUrl }}" alt="{{ project.name }}" data-slug="{{ project.slug }}" height="280" width="280"/>
                 </li>
                 {% endfor %}
             </ul>

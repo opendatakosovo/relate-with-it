@@ -21,11 +21,11 @@ class MongoUtils(object):
         return list(cursor)
 
     def get_project(self, slug):
-        doc = self.mongo.db.projects.find_one()
+        doc = self.mongo.db.projects.find_one({'slug': slug})
         return doc
 
     def get_currency(self, slug):
-        doc = self.mongo.db.currencies.find_one()
+        doc = self.mongo.db.currencies.find_one({'slug': slug})
         return doc
 
     def get_expenses(self, region, dataset):
