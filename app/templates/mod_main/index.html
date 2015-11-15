@@ -111,13 +111,10 @@
             document.querySelector('.button--accept[data-stack = stack_krisna]').addEventListener(clickeventtype, function () {
                 krisna.accept(buttonClickCallback.bind(this));
             });
-            {#				document.querySelector('.button--reject[data-stack = stack_krisna]').addEventListener(clickeventtype, function() { krisna.reject(buttonClickCallback.bind(this)); });#}
 
             document.querySelector('.button--accept[data-stack = stack_krisna_project]').addEventListener(clickeventtype, function () {
                 krisna_project.accept(buttonClickCallback.bind(this));
             });
-            {#				document.querySelector('.button--reject[data-stack = stack_krisna_project]').addEventListener(clickeventtype, function() { krisna_project.reject(buttonClickCallback.bind(this)); });#}
-
 
             [].slice.call(document.querySelectorAll('.button--sonar')).forEach(function (bttn) {
                 bttn.addEventListener(clickeventtype, function () {
@@ -152,42 +149,38 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="unit-section content col-md-5">
-            <h1>Project</h1>
+        <div class="project-section content col-md-5">
             <ul id="stack_krisna" class="stack stack--krisna stack-project">
                 {% for project in  projects%}
                 <li class="stack__item">
-                    <h4>{{ project.name }}</h4>
+                    <h5>{{ project.name }}</h5>
                     <img src="{{ project.imageUrl }}" alt="{{ project.name }}" data-slug="{{ project.slug }}" height="280" width="280"/>
                 </li>
                 {% endfor %}
             </ul>
             <div class="controls">
-{#									<button class="button button--sonar button--reject" data-stack="stack_krisna"><i class="fa fa-times"></i><span class="text-hidden">Reject</span></button>#}
-                <button class="btn btn-warning button--accept" data-stack="stack_krisna">Nah!</button>
+                <button class="btn btn-warning button--accept" data-stack="stack_krisna">Another Project!</button>
             </div>
-{#						<script src="{{ url_for('static', filename='js/unit.js') }}"></script>#}
         </div>
 
         <div class="hajde col-md-2">
-            <a href="#" data-dismiss="modal"><img class="img-responsive img-center btn-hajde btn-hajde-circle" width=100px;
-                             src="{{ url_for('static', filename='img/hajde.png') }}"></a>
+            <a href="#" data-dismiss="modal">
+                <img class="img-responsive img-center btn-hajde btn-hajde-circle" width=100px; src="{{ url_for('static', filename='img/hajde.png') }}">
+            </a>
         </div>
 
-        <div class="project-section content col-md-5">
-            <h1>Currency</h1>
+        <div class="currency-section content col-md-5">
             <ul id="stack_krisna_project" class="stack stack--krisna_project stack-currency">
                 {% for currency in currencies %}
                 <li class="stack__item">
-                    <h4>{{ currency.name }}</h4>
+                    <h5>{{ currency.name }}</h5>
                     <img src="{{ currency.imageUrl }}" alt="{{ currency.name }}" data-slug="{{ currency.slug }}" height="280" width="280">
                 </li>
                 {% endfor %}
             </ul>
-{#                        <script src="{{ url_for('static', filename='js/section.js') }}"></script>#}
+            <script src="{{ url_for('static', filename='js/section.js') }}"></script>
             <div class="controls">
-{#							<button class="button button--sonar button--reject" data-stack="stack_krisna_project"><i class="fa fa-times"></i><span class="text-hidden">Reject</span></button>#}
-                <button class="btn btn-warning button--accept" data-stack="stack_krisna_project">Nah!</button>
+                <button class="btn btn-warning button--accept" data-stack="stack_krisna_project">Another Currency!</button>
             </div>
         </div>
     </div>
