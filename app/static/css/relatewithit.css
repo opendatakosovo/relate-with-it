@@ -8,14 +8,14 @@
 
 .unit-section{
 	background-color:#5cc2f1;
-	min-height:750px;
+	min-height: 100%;
 	/* padding-top: 163px; */
 	/* position:relative; */
 	/* z-index: 999; */
 }
 .project-section{
 	background-color:#fff59d;
-	min-height:750px;
+	min-height: 100%;
 	/* padding-top: 163px; */
 }
 .header{
@@ -26,7 +26,7 @@
 }
 .hajde {
     background: linear-gradient(to right, #5cc2f1 0%,#5cc2f1 50%,#000000 50%,#fff59d 50%,#fff59d 100%);
-    min-height:750px;
+    min-height: 100%;
 }
 .btn-hajde-circle {
     width: 100px;
@@ -36,7 +36,7 @@
     margin-right: auto;
 }
 .btn-hajde-circle:hover {
-    opacity: 0.9;
+    opacity: 1;
 }
 #choose-params-modal {
     padding-left: 0 !important;

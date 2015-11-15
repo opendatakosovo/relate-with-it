@@ -146,9 +146,10 @@ button:focus {
 	align-self: stretch;
 	overflow: hidden;
 	padding: 2em 2em 6em;
-	width: 50%;
+	/* width: 50%; */
 	position: relative;
-	display: -webkit-flex;
+	display: 
+	-webkit-flex;
 	display: flex;
 	-webkit-justify-content: center;
 	justify-content: center;
