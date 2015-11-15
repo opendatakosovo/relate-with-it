@@ -36,7 +36,7 @@
     margin-right: auto;
 }
 .btn-hajde-circle:hover {
-    opacity: 1;
+    opacity: 0.9;
 }
 #choose-params-modal {
     padding-left: 0 !important;
