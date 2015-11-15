@@ -77,6 +77,9 @@
                     {# But how much is it in... <strong><em><a href="#" style="color:orange;" data-toggle="tooltip" data-placement="bottom" title="Kosovo: {{ currency.kosovo.value|to_currency('EUR') }}; Montenegro: {{ currency.montenegro.value|to_currency('EUR') }}; Serbia: {{ currency.serbia.value|to_currency('EUR') }}.">{{ currency.name }}</a></em></strong>? #}
                     But how much is it in... <strong><em><a href="#" style="color:orange;" data-toggle="tooltip" data-placement="bottom" title="{{ currency.description }}">{{ currency.name }}</a></em></strong>?
                 </p>
+                <p>
+                    <img src="{{ currency.imageUrl }}"  height="20" width="20" />&nbsp;≃&nbsp;{{ get_median_lot_size(project.cost, currency.kosovo.value, currency.montenegro.value, currency.serbia.value) }}&nbsp;{{ currency.name }}
+                </p>
             </div>
         </div>
         <div class="row">
@@ -87,21 +90,17 @@
                     <div class="text-center" style="padding-bottom:30px;">
                         <h4>Kosovo</h4>
                         <p>{{ (project.cost / currency.kosovo.value)|round|int }} {{ currency.name }}</p>
-                        <img src="{{ currency.imageUrl }}"  height="20" width="20" /> x {{ (project.cost / currency.kosovo.value)|round|int|get_lot_size }}
                     </div>
-                    <div>
-                    {% for item in range(0, (project.cost / currency.kosovo.value)|round|int|get_lot_amount) %}
+                    {% for item in range(0, get_total_lots(project.cost, currency.kosovo.value, currency.kosovo.value, currency.montenegro.value, currency.serbia.value)) %}
                         <img class="hiddenImg" id="kosovo-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
                     {% endfor %}
-                    </div>
                 </div>
                 <div id="viz-montenegro" class="col-md-4" style="padding:15px;">
                     <div class="text-center" style="padding-bottom:30px;">
                         <h4>Montenegro</h4>
                         <p>{{ (project.cost / currency.montenegro.value)|round|int }} {{ currency.name }}</p>
-                        <img src="{{ currency.imageUrl }}"  height="20" width="20" /> x {{ (project.cost / currency.montenegro.value)|round|int|get_lot_size }}
                     </div>
-                    {% for item in range(0, (project.cost / currency.montenegro.value)|round|int|get_lot_amount) %}
+                    {% for item in range(0, get_total_lots(project.cost, currency.montenegro.value, currency.kosovo.value, currency.montenegro.value, currency.serbia.value)) %}
                         <img class="hiddenImg" id="montenegro-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
                     {% endfor %}
                 </div>
@@ -109,9 +108,8 @@
                     <div class="text-center" style="padding-bottom:30px;">
                         <h4>Serbia</h4>
                         <p>{{ (project.cost / currency.serbia.value)|round|int }} {{ currency.name }}</p>
-                        <img src="{{ currency.imageUrl }}"  height="20" width="20" /> x {{ (project.cost / currency.serbia.value)|round|int|get_lot_size }}
                     </div>
-                    {% for item in range(0, (project.cost / currency.serbia.value)|round|int|get_lot_amount) %}
+                    {% for item in range(0, get_total_lots(project.cost, currency.serbia.value, currency.kosovo.value, currency.montenegro.value, currency.serbia.value)) %}
                         <img class="hiddenImg" id="serbia-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
                     {% endfor %}
                 </div>
