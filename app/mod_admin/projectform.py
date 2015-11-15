@@ -12,6 +12,9 @@ class ProjectForm(Form):
     # A description if the project.
     description = TextAreaField('Description')
 
+    # Image URL field
+    image_url = StringField('Image URL')
+
     # The cost of the project.
     cost = FloatField('Cost')
 

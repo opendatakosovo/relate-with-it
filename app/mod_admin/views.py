@@ -3,7 +3,6 @@ from currencyform import CurrencyForm
 from projectform import ProjectForm
 from app import mongo_utils
 
-
 mod_admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 @mod_admin.route('/', methods=['GET'])
@@ -31,7 +30,7 @@ def project():
                 'type': form.source_type.data,
                 'reference': form.source_ref.data
             },
-            'imageUrl': ''
+            'imageUrl': form.image_url.data
         }
         mongo_utils.save_project(doc)
 
@@ -61,7 +60,7 @@ def currency():
                 'value': float(form.value_rs.data),
                 'source': form.source_rs.data
             },
-            'imageUrl': ''
+            'imageUrl': form.image_url.data
         }
         mongo_utils.save_currency(doc)
 

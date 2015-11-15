@@ -50,6 +50,8 @@ def load_config(app):
     config_filepath = app_dir + '/config.cfg'
     config.read(config_filepath)
 
+    app.config['UPLOAD_FOLDER'] = app_dir + '/static/img/uploads'
+
     app.config['SERVER_PORT'] = config.get('Application', 'SERVER_PORT')
     app.config['MONGO_DBNAME'] = config.get('Mongo', 'DB_NAME')
 
