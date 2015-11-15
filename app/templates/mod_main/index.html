@@ -7,7 +7,9 @@
             var currencySlug = $('.stack-currency .stack__item--current img').attr('data-slug');
             var projectSlug = $('.stack-project .stack__item--current img').attr('data-slug');
 
-            document.location.href = "{{ url_for('main.visualizer', project_slug='project-slug', currency_slug='currency-slug') }}";
+            var href = "{{ url_for('main.visualizer', project_slug='project-slug', currency_slug='currency-slug') }}";
+
+            document.location.href = href;
         });
 
         // http://stackoverflow.com/a/11381730/989439
