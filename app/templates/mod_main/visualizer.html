@@ -20,13 +20,15 @@
 
         // all of them are hidden
         // they start appealing from the last one     
+        var delayInd = 0;
 
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
             
-            $($("img[id*=kosovo-img-]").get().reverse()).each(function (ind, ter) {
-                $(ter).addClass('animated slideInDown').removeClass("hiddenImg").delay(1000 );     
-            })
+          /*  $($("img[id*=kosovo-img-]").get().reverse()).each(function (ind, ter) {
+                $(ter).addClass('animated slideInDown').removeClass("hiddenImg").delay(1000 + delayInd * 1500);     
+                delayInd++;
+            })*/
 
         });
     </script>
@@ -38,7 +40,7 @@
     <style>
 
     .hiddenImg{
-        visibility: hidden;
+       /*  visibility: hidden; */
     }
     img[id*=img]{
        /*  display: none; */
