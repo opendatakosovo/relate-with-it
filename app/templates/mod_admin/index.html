@@ -143,9 +143,9 @@
                             <tr>
                                 <td>{{ currency.name }}</td>
                                 <td>{{ currency.description }}</td>
-                                <td><a href="{{ currency['kosovo']['source'] }}" target="_blank">{{ currency['kosovo']['value'] }}</a></td>
-                                <td><a href="{{ currency['montenegro']['source'] }}" target="_blank">{{ currency['montenegro']['value'] }}</a></td>
-                                <td><a href="{{ currency['serbia']['source'] }}" target="_blank">{{ currency['serbia']['value'] }}</a></td>
+                                <td><a href="{{ currency['kosovo']['source'] }}" target="_blank">{{ currency['kosovo']['value']|to_currency('EUR') }}</a></td>
+                                <td><a href="{{ currency['montenegro']['source'] }}" target="_blank">{{ currency['montenegro']['value']|to_currency('EUR') }}</a></td>
+                                <td><a href="{{ currency['serbia']['source'] }}" target="_blank">{{ currency['serbia']['value']|to_currency('EUR') }}</a></td>
                                 <td>
                                     <a href="javascript:removeCurrency('{{ currency._id }}')" id="remove-{{ currency._id }}"><i class="glyphicon glyphicon-remove" style="color:red"></i></a>
                                 </td>
