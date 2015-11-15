@@ -81,17 +81,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 project-info" align="center">
-                <h2>
-                    <a href="#" data-toggle="tooltip" data-placement="right" title="{{ project.description }}">{{ project.name }}</a>
-                </h2>
                 <p>
-                    A <font color="red"><strong><em>{{ project.cost|to_currency(project.currency) }}</em></strong></font> project in <strong><em>{{ project.region }}</em></strong>.
-                    <br>
-                    {# But how much is it in... <strong><em><a href="#" style="color:orange;" data-toggle="tooltip" data-placement="bottom" title="Kosovo: {{ currency.kosovo.value|to_currency('EUR') }}; Montenegro: {{ currency.montenegro.value|to_currency('EUR') }}; Serbia: {{ currency.serbia.value|to_currency('EUR') }}.">{{ currency.name }}</a></em></strong>? #}
-                    But how much is it in... <strong><em><a href="#" style="color:orange;" data-toggle="tooltip" data-placement="bottom" title="{{ currency.description }}">{{ currency.name }}</a></em></strong>?
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="{{ project.description }}">
+                        <span style="font-size:27px;"><strong>{{ project.name }}</strong></span>
+                    </a>
                 </p>
-                <p>
-                    <img src="{{ currency.imageUrl }}"  height="20" width="20" />&nbsp;≃&nbsp;{{ lots['median'] }}&nbsp;{{ currency.name }}
+                <p style="font-size:16px;">
+                    A <font color="red"><strong><em>{{ project.cost|to_currency(project.currency) }}</em></strong></font> project in <strong><em>{{ project.region }}</em></strong>, how much is it in... <strong><em><a href="#" style="color:orange;" data-toggle="tooltip" data-placement="bottom" title="{{ currency.description }}">{{ currency.name }}</a></em></strong>?
+                    {# But how much is it in... <strong><em><a href="#" style="color:orange;" data-toggle="tooltip" data-placement="bottom" title="Kosovo: {{ currency.kosovo.value|to_currency('EUR') }}; Montenegro: {{ currency.montenegro.value|to_currency('EUR') }}; Serbia: {{ currency.serbia.value|to_currency('EUR') }}.">{{ currency.name }}</a></em></strong>? #}
+                </p>
+                <p style="font-size:11px;">
+                    <br>
+                    <img src="{{ currency.imageUrl }}"  height="20" width="20" />&nbsp;≃&nbsp;{{ lots['median']|to_num_format }}&nbsp;{{ currency.name }}
                 </p>
             </div>
         </div>
