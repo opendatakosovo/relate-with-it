@@ -1,0 +1,95 @@
+type,description,total ,date
+Wages and Salaries,Neto wage,"414,742,000",2014
+Wages and Salaries,Tax on personal income ,"24,274,000",2014
+Wages and Salaries,Payment on the pensional contriburion of the employee ,"23,090,000",2014
+Wages and Salaries,Payment on the pensional contriburion of the employer,"23,135,000",2014
+Wages and Salaries,Employees with contracts (not on list of wages),"6,000",2014
+Wages and Salaries,Neto wage,"832,000",2014
+Wages and Salaries,Tax on personal income ,"103,000",2014
+Wages and Salaries,Payment on the pensional contriburion of the employee ,"55,000",2014
+Wages and Salaries,Payment on the pensional contriburion of the employer,"9,000",2014
+Wages and Salaries,Neto wage for overtime work,"9,000",2014
+Wages and Salaries,Employees with contracts (not on list of wages),"436,000",2014
+Goods and Services,Traveling expenditures ,"10,563,000",2014
+Goods and Services,Telecommunication services ,"4,556,000",2014
+Goods and Services,Contracting services ,"41,156,000",2014
+Goods and Services,Furniture and equipment ,"6,321,000",2014
+Goods and Services,Supplies ,"54,618,000",2014
+Goods and Services,Fuel and derivates,"22,192,000",2014
+Goods and Services,Financial services ,"294,000",2014
+Goods and Services,Registration and insurance services,"4,581,000",2014
+Goods and Services,Mainainance and reparation,"23,388,000",2014
+Goods and Services,Rent ,"7,923,000",2014
+Goods and Services,Marketing expenditures ,"2,234,000",2014
+Goods and Services,Representation expenditures ,"3,220,000",2014
+Goods and Services,Courts decisions ,"1,833,000",2014
+Goods and Services,Tax,"63,000",2014
+Goods and Services,Traveling expenditures ,"335,000",2014
+Goods and Services,Telecommunication services ,"35,000",2014
+Goods and Services,Contracting services ,"4,262,000",2014
+Goods and Services,Mobilje dhe paisje,"182,000",2014
+Goods and Services,Furniture and equipment ,"156,000",2014
+Goods and Services,Fuel and derivates,"7,000",2014
+Goods and Services,Registration and insurance services,"9,000",2014
+Goods and Services,Mainainance and reparation,"24,000",2014
+Goods and Services,Rent ,"15,000",2014
+Goods and Services,Marketing expenditures ,"27,000",2014
+Goods and Services,Representation expenditures ,"39,000",2014
+Utilities,Electricity expenditures ,"13,797,000",2014
+Utilities,Water expenditures ,"3,549,000",2014
+Utilities,Waste expenditures ,"1,775,000",2014
+Utilities,Heating expenditures ,"974,000",2014
+Utilities,Phone expenditures ,"1,923,000",2014
+Utilities,Courts decisions ,"79,000",2014
+Utilities,Electricity expenditures ,"1,000",2014
+Utilities,Phone expenditures ,"1,000",2014
+Subsidies and Transfers,Subsidies for public enterprices ,"36,413,000",2014
+Subsidies and Transfers,Sibsidies for cultural entities ,"2,435,000",2014
+Subsidies and Transfers,Subsidies for non public entities ,"30,575,000",2014
+Subsidies and Transfers,Other government transfers ,"3,000,000",2014
+Subsidies and Transfers,Subsidy policies BKS V.Q 02/151,"1,499,000",2014
+Subsidies and Transfers,Wages on individual beneficiaries ,"11,625,000",2014
+Subsidies and Transfers,Basic pensions,"170,626,000",2014
+Subsidies and Transfers,Pensions for prisoners,"4,997,000",2014
+Subsidies and Transfers,Pensions for blinds,"10,000",2014
+Subsidies and Transfers,Wages for war invalids ,"35,986,000",2014
+Subsidies and Transfers,Wages for families of vicitims of war ,"57,000",2014
+Subsidies and Transfers,Pensions for employees of Trepca,"3,950,000",2014
+Subsidies and Transfers,Courts decisions ,"336,000",2014
+Subsidies and Transfers,Payments to farming sector,"144,000",2014
+Subsidies and Transfers,Payments to agriculture,"5,576,000",2014
+Subsidies and Transfers,Restructuring of physical potential,"2,189,000",2014
+Subsidies and Transfers,Subsidies for public enterprices ,"2,000",2014
+Subsidies and Transfers,Sibsidies for cultural entities ,"7,000",2014
+Subsidies and Transfers,Subsidies for non public entities ,"1,407,000",2014
+Subsidies and Transfers,Wages on individual beneficiaries ,"71,000",2014
+Subsidies and Transfers,Payments to farming sector,"1,000",2014
+Subsidies and Transfers,Restructuring of physical potential,"1,878,000",2014
+Subsidies and Transfers,Basic Contribution pensions,"177,000",2014
+Subsidies and Transfers,Pensions for persons with limited abilities ,"22,284,000",2014
+Subsidies and Transfers,Social assistance,"26,641,000",2014
+Subsidies and Transfers,PTK Pensions ( Protective Troops of Kosovo),"2,640,000",2014
+Capital Expenditures,Buildings ,"62,260,000",2014
+Capital Expenditures,Road construcion,"212,549,000",2014
+Capital Expenditures,"Energy, generation, transfer and supply","935,000",2014
+Capital Expenditures,Equipment for informative technology,"28,121,000",2014
+Capital Expenditures,Transport vehicles ,"8,420,000",2014
+Capital Expenditures,Machinery,"535,000",2014
+Capital Expenditures,Other capital,"47,282,000",2014
+Capital Expenditures,Ongoing investments,"37,000",2014
+Capital Expenditures,Intangable assets ,"413,000",2014
+Capital Expenditures,Land,"34,077,000",2014
+Capital Expenditures,Capital transfers - public enterprices ,"7,575,000",2014
+Capital Expenditures,Capital transfers - non public enterprices ,"1,745,000",2014
+Capital Expenditures,Courts decisions ,"7,402,000",2014
+Capital Expenditures,Animal - assisting in security,"9,000",2014
+Capital Expenditures,Buildings ,"170,000",2014
+Capital Expenditures,Road construcion,"466,000",2014
+Capital Expenditures,Equipment for informative technology,"219,000",2014
+Capital Expenditures,Transportation Vehicles,"62,000",2014
+Capital Expenditures,Land,"1,000",2014
+Capital Expenditures,Other capital,"565,000",2014
+Capital Expenditures,Capital Transfers Non-public entities,"78,000",2014
+Other payments,Debt servicing,"34,877,000",2014
+Other payments,Return of Deposits,"993,000",2014
+Other payments,Payments of membership to IFI,"717,000",2014
