@@ -49,6 +49,10 @@ def get_lot_amount(total):
     lot_amount = total / lot_size
     return int(lot_amount)
 
+
+def get_median_lot_size():
+    pass;
+
 app.jinja_env.filters['to_currency'] = to_currency
 app.jinja_env.filters['get_lot_size'] = get_lot_size
 app.jinja_env.filters['get_lot_amount'] = get_lot_amount
