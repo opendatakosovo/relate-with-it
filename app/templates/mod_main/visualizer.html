@@ -10,18 +10,36 @@
 
         var numberKosovo = 100;
 
-        var delayInd = 0;
+        var delayIndKosovo = 0;
+        var delayIndMontenegro = 0;
+        var delayIndSerbia = 0;
 
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
-            //$("img[id*=kosovo-img-]").get().reverse()
-              $("img[id*=kosovo-img-]").each(function() {
+            
+            $("img[id*=kosovo-img-]").each(function() {
                     $(this).addClass('animated slideInDown')
-                        .delay(500 + 10 * delayInd++).queue(function() {
+                        .delay(500 + 10 * delayIndKosovo++).queue(function() {
                             $(this).removeClass("hiddenImg").dequeue();
                         });
 
-                })              
+            })   
+
+            $("img[id*=montenegro-img-]").each(function() {
+                    $(this).addClass('animated slideInDown')
+                        .delay(500 + 10 * delayIndSerbia++).queue(function() {
+                            $(this).removeClass("hiddenImg").dequeue();
+                        });
+            })   
+
+            $("img[id*=serbia-img-]").each(function() {
+                    $(this).addClass('animated slideInDown')
+                        .delay(500 + 10 * delayIndMontenegro++).queue(function() {
+                            $(this).removeClass("hiddenImg").dequeue();
+                        });
+            })   
+
+
         })
 
        
