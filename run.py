@@ -11,7 +11,7 @@ def to_currency(cost, currency):
     if currency == 'EUR':
         symbol = u'\u20AC'
 
-    return "%s {:,.2f}".format(cost) % symbol
+    return "%s%s{:,.2f}".format(cost) % (symbol,  u'\u00A0')
 
 app.jinja_env.filters['to_currency'] = to_currency
 

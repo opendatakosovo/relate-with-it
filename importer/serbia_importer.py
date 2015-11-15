@@ -1,5 +1,6 @@
 from abstract_importer import AbstractImporter
 from slugify import slugify
+import cyrtranslit
 
 class SerbiaImporter(AbstractImporter):
 
@@ -28,13 +29,13 @@ class SerbiaImporter(AbstractImporter):
                 'name': self.get_region(),
                 'slug': slugify(self.get_region(), to_lower=True),
                 'subregion':{
-                    'name': row[0],
-                    'slug': slugify(row[0], to_lower=True),
+                    'name': cyrtranslit.to_latin(row[0]),
+                    'slug': cyrtranslit.to_latin(slugify(row[0], to_lower=True)),
                 }
             },
             'activity':{
                 'id': int(row[1]),
-                'description': row[2]
+                'description': cyrtranslit.to_latin(row[2])
             },
             'dataset': {
                 'name': self.get_dataset(),

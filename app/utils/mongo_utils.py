@@ -1,3 +1,5 @@
+from bson import ObjectId
+
 class MongoUtils(object):
     mongo = None
 
@@ -33,4 +35,14 @@ class MongoUtils(object):
         self.mongo.db.dataset.remove({
             'region.name': region,
             'dataset.name': dataset
+        })
+
+    def remove_project(self, id):
+        self.mongo.db.projects.remove({
+            '_id': ObjectId(id)
+        })
+
+    def remove_currency(self, id):
+        self.mongo.db.currencies.remove({
+            '_id': ObjectId(id)
         })

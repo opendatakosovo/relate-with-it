@@ -39,3 +39,15 @@ def currencies():
     return Response(response=json_util.dumps(results),
                     status=200,
                     mimetype='application/json')
+
+
+@mod_api.route('/projects/delete/<id>', methods=['POST'])
+def remove_project(id):
+    mongo_utils.remove_project(id)
+    return Response(status=200)
+
+
+@mod_api.route('/currencies/delete/<id>', methods=['POST'])
+def remove_currency(id):
+    mongo_utils.remove_currency(id)
+    return Response(status=200)

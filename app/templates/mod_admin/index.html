@@ -1,5 +1,10 @@
 {% extends "admin_layout.html" %}
 {% block body %}
+<style>
+    .glaphicon a:link{
+        text-decoration: none;
+    }
+</style>
 <script>
     $( document ).ready(function() {
         $('#projects-table').DataTable( {
@@ -10,6 +15,26 @@
         } );
         $('#currencies-table').DataTable();
     });
+
+    function removeProject(id){
+        $.post( "{{ url_for('api.remove_project', id='') }}" + id, function( ) {
+            // Use href id to retrieve row grandparent element...
+            var hrefId = 'remove-' + id;
+
+            // ... so that we can remove that row from the table.
+            $('#projects-table tr td a[id=' + hrefId + ']').parent().parent().remove();
+        });
+    }
+
+    function removeCurrency(id){
+        $.post( "{{ url_for('api.remove_currency', id='') }}" + id, function( ) {
+            // Use href id to retrieve row grandparent element...
+            var hrefId = 'remove-' + id;
+
+            // ... so that we can remove that row from the table.
+            $('#currencies-table tr td a[id=' + hrefId + ']').parent().parent().remove();
+        });
+    }
 </script>
 
 <div class="container-fluid">
@@ -60,6 +85,7 @@
                                 <th>Description</th>
                                 <th>Cost</th>
                                 <th>Source Type</th>
+                                <th></th>
                             </tr>
                         </thead>
 
@@ -81,6 +107,9 @@
                                 {% else %}
                                     <a href="{{ project.source.reference }}" target="_blank">MoD</a>
                                 {% endif %}
+                                </td>
+                                <td>
+                                    <a href="javascript:removeProject('{{ project._id }}')" id="remove-{{ project._id }}"><i class="glyphicon glyphicon-remove" style="color:red"></i></a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -106,6 +135,7 @@
                                 <th>Kosovo</th>
                                 <th>Montenegro</th>
                                 <th>Serbia</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,6 +146,9 @@
                                 <td><a href="{{ currency['kosovo']['source'] }}" target="_blank">{{ currency['kosovo']['value'] }}</a></td>
                                 <td><a href="{{ currency['montenegro']['source'] }}" target="_blank">{{ currency['montenegro']['value'] }}</a></td>
                                 <td><a href="{{ currency['serbia']['source'] }}" target="_blank">{{ currency['serbia']['value'] }}</a></td>
+                                <td>
+                                    <a href="javascript:removeCurrency('{{ currency._id }}')" id="remove-{{ currency._id }}"><i class="glyphicon glyphicon-remove" style="color:red"></i></a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
