@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, url_for, redirect
 from currencyform import CurrencyForm
 from projectform import ProjectForm
 from app import mongo_utils
+from slugify import slugify
 
 mod_admin = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -23,6 +24,7 @@ def project():
         doc = {
             'region': form.region.data,
             'name': form.name.data,
+            'slug': slugify(form.name.data, to_lower=True),
             'description': form.description.data,
             'cost': float(form.cost.data),
             'currency': form.currency.data,
@@ -47,6 +49,7 @@ def currency():
         form = CurrencyForm(request.form)
         doc = {
             'name': form.name.data,
+            'slug': slugify(form.name.data, to_lower=True),
             'description': form.description.data,
             'kosovo': {
                 'value': float(form.value_ks.data),
