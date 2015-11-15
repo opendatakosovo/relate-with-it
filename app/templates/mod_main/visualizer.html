@@ -1,20 +1,65 @@
 {% extends "layout.html" %}
 
 {% block script %}
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> -->
     <script>
+
+
+        var options = {"easing":"easeOutBack"};
+        var selectedEffect = "slide";
+        
+        function callback() {
+            //console.log(this);
+
+            
+        }
+
+        var numberKosovo = {{ (project.cost / currency.kosovo.value)|round|int }};
+
+        var numberKosovo = 100;
+
+        // all of them are hidden
+        // they start appealing from the last one     
+
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
+            
+            $($("img[id*=kosovo-img-]").get().reverse()).each(function (ind, ter) {
+                $(ter).addClass('animated slideInDown').removeClass("hidden").delay(1000 );     
+            })
 
-            {# for (i = 0; i < {{ (project.cost / currency.kosovo.value)|round|int }}; i++) { #}
-
-            //}
-            //$( "#effect" ).effect( selectedEffect, options, 500, callback )
-            // source: https://jqueryui.com/effect/
         });
     </script>
 {% endblock %}
 
 {% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
+    
+    <style>
+
+    .hidden{
+        visibility: hidden;
+    }
+    img[id*=img]{
+       /*  display: none; */
+     
+      -webkit-animation-duration: 0.3s;
+      -moz-animation-duration: 0.3s;
+      -o-animation-duration: 0.3s;
+      animation-duration: 0.3s;
+      
+      -webkit-animation-delay: 0.3s;
+      -moz-animation-delay: 0.3s;
+      -o-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+
+      -webkit-animation-iteration-count: once;
+      -moz-animation-iteration-count: once;
+      -o-animation-iteration-count: once;
+      animation-iteration-count: once;
+
+    }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -44,7 +89,7 @@
                     </div>
                     <div>
                     {% for item in range(0, (project.cost / currency.kosovo.value)|round|int|get_lot_amount) %}
-                        <img id="kosovo-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
+                        <img class="hidden" id="kosovo-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
                     {% endfor %}
                     </div>
                 </div>
@@ -55,7 +100,7 @@
                         <img src="{{ currency.imageUrl }}"  height="20" width="20" /> x {{ (project.cost / currency.montenegro.value)|round|int|get_lot_size }}
                     </div>
                     {% for item in range(0, (project.cost / currency.montenegro.value)|round|int|get_lot_amount) %}
-                        <img src="{{ currency.imageUrl }}"  height="20" width="20" />
+                        <img class="hidden" id="montenegro-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
                     {% endfor %}
                 </div>
                 <div id="viz-serbian" class="col-md-4" style="padding:15px;">
@@ -65,7 +110,7 @@
                         <img src="{{ currency.imageUrl }}"  height="20" width="20" /> x {{ (project.cost / currency.serbia.value)|round|int|get_lot_size }}
                     </div>
                     {% for item in range(0, (project.cost / currency.serbia.value)|round|int|get_lot_amount) %}
-                        <img src="{{ currency.imageUrl }}"  height="20" width="20" />
+                        <img class="hidden" id="serbia-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
                     {% endfor %}
                 </div>
             </div>
