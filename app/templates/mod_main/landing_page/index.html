@@ -10,15 +10,18 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="unit-section content col-md-5">
-						<h2 class="content__title">Unit</h2>
+						<h1>Project</h1>
 						<ul id="stack_krisna" class="stack stack--krisna">
-								{% for unit in currencies %}
-									<li class="stack__item"><h4>Unit Name: {{ unit.name }}</h4><img src="{{ unit.imageUrl }}" alt="{{ unit.name }}"></li>
-								{% endfor %}
+                            {% for project in  projects%}
+                            <li class="stack__item">
+                                <h4>Project Name: {{ project.name }}</h4>
+                                <img src="{{ url_for('static', filename='img/'+loop.index|safe+'.png') }}" alt="{{ project.name }}" />
+                            </li>
+							{% endfor %}
 						</ul>
 						<div class="controls">
 {#									<button class="button button--sonar button--reject" data-stack="stack_krisna"><i class="fa fa-times"></i><span class="text-hidden">Reject</span></button>#}
-							<button class="btn btn-warning button--accept" data-stack="stack_krisna">Give me another one!</button>
+							<button class="btn btn-warning button--accept" data-stack="stack_krisna">Nah!</button>
 						</div>
 {#						<script src="{{ url_for('static', filename='js/unit.js') }}"></script>#}
                     </div>
@@ -28,16 +31,19 @@
                                          src="{{ url_for('static', filename='img/hajde.png') }}"></a>
                     </div>
                     <div class="project-section content  col-md-5">
-                        <h1>Project</h1>
+                        <h1>Currency</h1>
 						<ul id="stack_krisna_project" class="stack stack--krisna_project">
-							{% for project in  projects%}
-								<li class="stack__item"><h4>Project Name: {{ project.name }}</h4><img src="{{ url_for('static', filename='img/'+loop.index|safe+'.png') }}" alt="{{ project.name }}" /></li>
-							{% endfor %}
+							{% for unit in currencies %}
+                            <li class="stack__item">
+                                <h4>{{ unit.name }}</h4>
+                                <img src="{{ unit.imageUrl }}" alt="{{ unit.name }}" height="280" width="280">
+                            </li>
+                            {% endfor %}
 						</ul>
 {#                        <script src="{{ url_for('static', filename='js/section.js') }}"></script>#}
 						<div class="controls">
 {#							<button class="button button--sonar button--reject" data-stack="stack_krisna_project"><i class="fa fa-times"></i><span class="text-hidden">Reject</span></button>#}
-							<button class="btn btn-warning button--accept" data-stack="stack_krisna_project">Give me another one!</button>
+							<button class="btn btn-warning button--accept" data-stack="stack_krisna_project">Nah!</button>
 						</div>
                     </div>
 
