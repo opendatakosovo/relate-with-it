@@ -13,7 +13,45 @@ def to_currency(cost, currency):
 
     return "%s%s{:,.2f}".format(cost) % (symbol,  u'\u00A0')
 
+def get_lot_size(total):
+    if total > 100000000000:
+        return 1000000000
+
+    if total > 10000000000:
+        return 100000000
+
+    if total > 1000000000:
+        return 10000000
+
+    if total > 100000000:
+        return 1000000
+
+    if total > 10000000:
+        return 100000
+
+    # 1 million
+    if total > 1000000:
+        return 10000
+
+    if total > 100000:
+        return 1000
+
+    if total > 10000:
+        return 100
+
+    if total > 1000:
+        return 10
+
+    return 1
+
+def get_lot_amount(total):
+    lot_size = get_lot_size(total)
+    lot_amount = total / lot_size
+    return int(lot_amount)
+
 app.jinja_env.filters['to_currency'] = to_currency
+app.jinja_env.filters['get_lot_size'] = get_lot_size
+app.jinja_env.filters['get_lot_amount'] = get_lot_amount
 
 # Run the app
 if __name__ == '__main__':

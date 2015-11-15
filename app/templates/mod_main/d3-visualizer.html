@@ -1,0 +1,462 @@
+{% extends "layout.html" %}
+
+{% block script %}
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{% endblock %}
+
+{% block style %}
+<style type="text/css">
+
+.project-info a:link{
+    text-decoration: none;
+}
+
+.svgLane {
+    display: inline;
+    width: 30vw;
+    height: 85vh;/* 550px; */
+    overflow: none;
+    padding: 5px;
+    float: left;
+}
+
+text {
+    fill: orange;
+    text-anchor: left;
+    font-size: 12px;
+    font-family: sans-serif, Helvetica, Arial;
+    font-weight: bold;
+}
+
+.iconPlain {
+    fill: white;
+    opacity: 0.01;
+}
+
+.iconSelected {
+    fill: orange;
+    opacity: 1;
+}
+
+rect {
+    fill: #555555;
+}
+
+/*not used with png*/
+.pictogram * {
+    fill: orange;
+    stroke: orange;
+}
+
+#visu {
+    height: 100vh;
+}
+
+@media screen and (max-width: 800px) {
+
+    .svgLane {
+
+        width: 80vw;
+        height: 95vh;/* 550px; */
+        padding: 5px;
+        float: left;
+        margin: 0 6vw;
+    }
+
+}
+
+@media screen and (min-width: 801px) and (max-width: 1000px) {
+
+    .svgLane {
+
+        width: 30vw;
+        height: 95vh;/* 550px; */
+        padding: 5px;
+        float: left;
+        margin: 0 6vw;
+    }
+
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 project-info" align="center">
+                <h2>
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="{{ project.description }}">{{ project.name }}</a>
+                </h2>
+                <p>
+                    A <font color="red"><strong><em>{{ project.cost|to_currency(project.currency) }}</em></strong></font> project in <strong><em>{{ project.region }}</em></strong>.
+                    <br>
+                    {# But how much is it in... <strong><em><a href="#" style="color:orange;" data-toggle="tooltip" data-placement="bottom" title="Kosovo: {{ currency.kosovo.value|to_currency('EUR') }}; Montenegro: {{ currency.montenegro.value|to_currency('EUR') }}; Serbia: {{ currency.serbia.value|to_currency('EUR') }}.">{{ currency.name }}</a></em></strong>?  #}
+                    But how much is it in... <strong><em><a href="#" style="color:orange;" data-toggle="tooltip" data-placement="bottom" title="{{ currency.description }}">{{ currency.name }}</a></em></strong>?
+                </p>
+            </div>
+        </div>
+            
+        <div class="row">
+            <div id="viz-kosovo" class="col-md-4">
+            </div>
+            <div id="viz-montenegro" class="col-md-4">
+            </div>
+            <div id="viz-serbian" class="col-md-4">
+            </div>
+        </div>
+
+    </div>
+
+<div>
+    <p>Based on <a href="http://bl.ocks.org/alansmithy/d832fc03f6e6a91e99f4">pictogram grid</a></p>
+</div>
+
+<script>
+
+/**
+ * external params
+ */
+var multiplyer = 10;
+var imgIds = ["rentImg", "stadiumImg", "fountanImg"];
+var imgNames = ["{{ currency.imageUrl  }}", "{{ currency.imageUrl  }}", "{{ currency.imageUrl  }}"];
+/**
+ * ! external params
+ */
+
+var divContainers = ["viz-kosovo","viz-montenegro","viz-serbian"];
+var svgFrameNames = ["mainSvg", "mainSvg1", "mainSvg2"];
+var svgFrames = [];
+
+var laneName1 = "pictoLayer";
+var laneName2 = "pictoLayer1";
+var laneName3 = "pictoLayer2";
+
+
+//specify the number of columns and rows for pictogram layout
+var numCols = 10;
+var numRows = 15;
+
+//numCols * numRows = max amount of pictograms
+var numPicto = numCols * numRows;
+
+//padding for the grid
+var xPadding = 10;
+var yPadding = 15;
+
+//horizontal and vertical spacing between the icons
+var hBuffer = 9;
+var wBuffer = 8;
+
+
+//generate a d3 range for the total number of required elements
+var myIndex = d3.range(numPicto);
+
+
+divContainers.forEach(function(la, inde) {
+    var temp = d3.select("#"+la)
+            .append("svg")
+                .attr("id", svgFrameNames[inde])
+                .attr("class", "svgLane")
+                .attr("viewBox", "0 0 100 150");
+
+    temp.append("rect").attr("width", "100%").attr("height", "100%");
+
+    svgFrames.push(temp);
+
+})
+
+
+imgNames.forEach(function(imgName, ind) {
+    //not-showed icons
+    //used later by reference
+    d3.select("#mainSvg2 rect")
+        .append("image")
+        .attr("id", imgIds[ind])
+        .attr("x", "0")
+        .attr("y", "0")
+        .attr("width", "7")
+        .attr("height", "10")
+        .attr("xlink:href", imgName);
+})
+
+
+var rand = function(number) {
+    return Math.ceil(Math.random() * number)
+}
+
+svgFrames.forEach(function(el, index) {
+    el.append("text")
+        .attr("id", "txtValue")
+        .attr("x", xPadding * 4.2)
+        .attr("y", yPadding)
+        .attr("dy", -3)
+        .text("0");
+
+    el
+        .append("g")
+        .append("use")
+        .attr("x", xPadding * 3.5)
+        .attr("y", yPadding / 4)
+        .attr("dy", -3)
+        .attr("dx", 5)
+        .attr("xlink:href", function(d, i) {
+            return "#" + imgIds[index];
+        })
+        .attr('cursor', "hand")
+        .attr('cursor', "pointer")
+        .on("click", function() {
+            var tempElName = el[0][0].id;
+            var tempLaneName =
+                d3.select("#" + tempElName + " g[id]").attr("id");
+
+            var randImg =
+                ["#stadiumImg", "#fountanImg", "#rentImg"][rand(3) - 1]
+            var tempNumPicto = rand(numPicto);
+
+            d3.select(this).attr("xlink:href", randImg)
+
+            removeLane(tempLaneName);
+            addLane("#" + tempElName, tempLaneName, 0, 0, randImg);
+
+            showPictograms(tempNumPicto, tempLaneName);
+
+        });
+
+
+
+    el.select("g")
+        .append("text")
+            .attr("y", function (d,i) {
+              var tempY =
+                this.parentElement
+                    .getElementsByTagName("use")[0]
+                    .getAttribute('y');
+
+              return tempY;
+            })
+            .attr("x",  function (d,i) {
+              var tempX =
+                this.parentElement
+                    .getElementsByTagName("use")[0]
+                    .getAttribute('x');
+              return tempX;
+            })
+            .attr("dy", 3)
+            .attr("dx", -5)
+            .attr("style",'font-size:3px' )
+            .text("x " + multiplyer);
+
+})
+
+function removeLane(laneName) {
+    d3.select("#" + laneName).remove();
+}
+
+function addLane(svgFrame, laneName, xShift, yShift, imgUri) {
+
+    d3.select(svgFrame).append("g")
+        .attr("id", laneName)
+        .selectAll(laneName + " use")
+        .data(myIndex)
+        .enter()
+            .append("use")
+            .attr("xlink:href", function(d, i) {
+
+                if (imgUri != undefined) {
+                    //remove the previous
+                    return imgUri;
+                }
+                //else set default
+            })
+            .attr("id", function(d) {
+                return laneName + "icon" + d;
+            })
+            .attr("x", function(d) {
+                var remainder = d % numCols; //calculates the x position (column number) using modulus
+                return xPadding + (remainder * wBuffer) + xShift; //apply the buffer and return value
+            })
+            .attr("y", function(d) {
+                var whole = Math.floor(d / numCols) //calculates the y position (row number)
+                return yPadding + (whole * hBuffer); //apply the buffer and return the value
+            });
+
+}
+
+function showPictograms(noSelected, laneName) {
+
+    var amountOfDisplayedPictograms = noSelected;
+
+    //text should be in separete function
+    var txtVal = document.getElementById(laneName)
+        .parentElement
+        .getElementsByTagName("text")[0];
+
+    d3.select(txtVal).text(amountOfDisplayedPictograms);
+
+    //array indexes: 0 to length -1
+    var total = d3.selectAll("#" + laneName + " use")[0].length - 1;
+
+
+    var pictograms = d3.selectAll("#" + laneName + " use");
+
+    /*pictograms.forEach(function (elTem) {
+        $(elTem).
+    })
+    */
+    pictograms.attr("class", function(d, i) {
+
+        if ((total - d) < amountOfDisplayedPictograms) {
+            //TODO delay as animation
+
+            return "iconSelected";
+        } else {
+            return "iconPlain"; //invisible one
+        }
+    });
+}
+
+function addImage(pathToImage) {
+
+    // make it working with png, jpeg and svg
+
+}
+
+/**
+ *
+ * @param  number projectValue [description]
+ * @param  number unitValue    [description]
+ * @return object
+ *                 multiplier short form for multipliers (k-1000, m -1000*1000, b-1000*1000*1000)
+ *                 numberOfPictograms shouldn't be bigger than numPicto (e.g 150)
+ * // value of one unit[uv] (eg. 400eur)
+    // Project value[pv] (eg. 190m eur)
+    // pv/uv = (190 * 1000 * 1000 )/400 = 4.75 * 100 *1000 = 475 * 1000
+    // max amount of units is 150
+    // -> 475 *1000 = 47 * 5k
+ */
+function unitsNumber (projectValue, unitValue) {
+    var noTemp = projectValue / unitValue;
+    var result = {"multiplier":5, "numberOfPictograms":10};
+
+    //depends on unit value; !see what is happening when unit value is > 1k
+
+    if(noTemp < 151 ){
+      result.multiplier=1;
+    }
+
+        //max pv: 999b
+        //max noTemp : 150
+        //100b eur: 400eur => 100 * 1000 * 1000 * 1000 : 400 ~=250 * 100  * 1000 * 1000 => 2500 * 10m / 150 = 16.7 *10m
+
+        // 100m+ units && less than 150 * 100m units
+        if (noTemp > 1000 * 1000 * 100) {
+
+            tempVal= noTemp / ( 1000 * 1000 * 100);
+            if(tempVal > 15)
+            //if it's less than 15 = (150 /10) go one level down
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "100m";
+                }
+        }
+
+        if (noTemp > 1000 * 1000 * 10) { // 10m+ units
+
+            tempVal= noTemp / ( 1000 * 1000 * 10);
+            if(tempVal > 15)
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "10m";
+                }
+        }
+
+        if(noTemp > 1000 * 1000 ){//1m+
+            tempVal= noTemp / ( 1000 * 1000);
+            if(tempVal > 15)
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "1m";
+                }
+        }
+
+        if(noTemp > 1000 * 100 ){ //100k+
+            tempVal= noTemp / ( 1000 * 100);
+            if(tempVal > 15)
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "100k";
+                }
+        }
+
+        if(noTemp > 1000 * 10 ){ //10k+
+            tempVal= noTemp / ( 1000 * 10);
+            if(tempVal > 15)
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "10k";
+                }
+        }
+
+        if(noTemp > 1000  ){ //1k+
+            tempVal= noTemp / ( 1000 );
+            if(tempVal > 15)
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "1k";
+                }
+        }
+
+        if(noTemp > 100  ){ //100+
+            tempVal= noTemp / ( 100 );
+            if(tempVal > 15)
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "100";
+                }
+        }
+
+        if(noTemp > 10  ){ //10+
+            tempVal= noTemp / ( 10 );
+            if(tempVal > 15)
+                {
+                    noTemp = tempVal;
+                    result.multiplier = "10";
+                }
+        }
+
+    result.numberOfPictograms =  noTemp;
+
+    return result;
+}
+
+// e.g
+// tempUnit = unitsNumber(1054515454,451);
+// noPict1 = tempUnit.numberOfPictogramsl
+// multiplier = tempUnit.multiplier
+//
+// - presumption - multiplier will be the same for all of the three diagrams
+//
+
+var noPict1 = rand(numPicto) ;
+var noPict2 = rand(numPicto) ;
+var noPict3 = rand(numPicto) ;
+
+// only one image will be loaded for all three lanes .eg imgIds[0]
+addLane("#" + svgFrameNames[0], laneName1, 0, 0, "#" + imgIds[0]);
+addLane("#" + svgFrameNames[1], laneName2, 0, 0, "#" + imgIds[1]);
+addLane("#" + svgFrameNames[2], laneName3, 0, 0, "#" + imgIds[2]);
+
+
+showPictograms( noPict1, laneName1);
+showPictograms( noPict2, laneName2);
+showPictograms( noPict3, laneName3);
+
+</script>
+
+{% endblock %}
