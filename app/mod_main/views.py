@@ -10,8 +10,8 @@ def index():
     currencies = mongo_utils.get_currencies()
     return render_template('mod_main/index.html', projects=projects, currencies=currencies)
 
-@mod_main.route('/visualizer/<project_id>/<currency_id>', methods=['GET'])
-def visualizer(project_id, currency_id):
-    project = mongo_utils.get_project(project_id);
-    currency = mongo_utils.get_currency(currency_id);
+@mod_main.route('/visualizer/<project_slug>/<currency_slug>', methods=['GET'])
+def visualizer(project_slug, currency_slug):
+    project = mongo_utils.get_project(project_slug);
+    currency = mongo_utils.get_currency(currency_slug);
     return render_template('/mod_main/visualizer.html', project=project, currency=currency)
