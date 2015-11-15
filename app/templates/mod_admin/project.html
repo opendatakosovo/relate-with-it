@@ -5,6 +5,7 @@
 
         var montenegroExpensesRetrieved = false;
         var serbiaExpensesRetrieved = false;
+        var kosovoExpensesRetrieved = false;
 
         var montenegroExpensesTable = $( "#montenegro-expenses-table" ).DataTable( {
             dom: 'T<"clear">lfrtip',
@@ -15,6 +16,14 @@
         });
 
         var serbiaExpensesTable = $( "#serbia-expenses-table" ).DataTable( {
+            dom: 'T<"clear">lfrtip',
+            tableTools: {
+                "sRowSelect": "multi",
+                "aButtons": []
+            }
+        });
+
+        var kosovoExpensesTable = $( "#kosovo-expenses-table" ).DataTable( {
             dom: 'T<"clear">lfrtip',
             tableTools: {
                 "sRowSelect": "multi",
@@ -36,6 +45,11 @@
 
         $('#serbia-expenses-table').on('click', 'tr', function(event) {
             var cost = parseFloat(serbiaExpensesTable.row( this ).data()[3])
+            calculateNewCost(cost, $(this));
+        });
+
+        $('#kosovo-expenses-table').on('click', 'tr', function(event) {
+            var cost = parseFloat(kosovoExpensesTable.row( this ).data()[3])
             calculateNewCost(cost, $(this));
         });
 
@@ -115,7 +129,31 @@
         });
 
         function displayKosovoExpensesTable(){
-            console.log('todo: render kosovo expense table.')
+             if(kosovoExpensesRetrieved == false){
+                $.getJSON( "{{ url_for('api.expenses', region='kosovo', dataset='budget-expenditure-2014') }}", function(results) {
+                    $.each(results, function(idx, result) {
+                        kosovoExpensesTable.row.add([
+                            result.activity.type,
+                            result.year,
+                            result.activity.description,
+                            result.cost
+                        ]).draw();
+                    });
+                })
+                .done(function() {
+                    kosovoExpensesRetrieved = true;
+                    $('.kosovo-expenses-row').css('display', 'block');
+                    $('.montenegro-expenses-row').css('display', 'none');
+                    $('.serbia-expenses-row').css('display', 'none');
+                })
+                .fail(function() {
+                    console.log( "error" );
+                })
+            }else{
+                $('.kosovo-expenses-row').css('display', 'block');
+                $('.montenegro-expenses-row').css('display', 'none');
+                $('.serbia-expenses-row').css('display', 'none');
+            }
         }
 
         function displayMontenegroExpensesTable(){
