@@ -105,7 +105,7 @@
                         <p>{{ (project.cost / currency.kosovo.value)|round|int }} {{ currency.name }}</p>
                     </div>
                     {% for item in range(0, get_total_lots(project.cost, currency.kosovo.value, currency.kosovo.value, currency.montenegro.value, currency.serbia.value)) %}
-                        <img class="hiddenImg" id="kosovo-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
+                        <img class="hiddenImg" id="kosovo-img-{{ item }}" src="{{ currency.imageUrl }}"  height="40" width="40" />
                     {% endfor %}
                 </div>
                 <div id="viz-montenegro" class="col-md-4" style="padding:15px;">
@@ -114,7 +114,7 @@
                         <p>{{ (project.cost / currency.montenegro.value)|round|int }} {{ currency.name }}</p>
                     </div>
                     {% for item in range(0, get_total_lots(project.cost, currency.montenegro.value, currency.kosovo.value, currency.montenegro.value, currency.serbia.value)) %}
-                        <img class="hiddenImg" id="montenegro-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
+                        <img class="hiddenImg" id="montenegro-img-{{ item }}" src="{{ currency.imageUrl }}"  height="40" width="40" />
                     {% endfor %}
                 </div>
                 <div id="viz-serbian" class="col-md-4" style="padding:15px;">
@@ -123,7 +123,7 @@
                         <p>{{ (project.cost / currency.serbia.value)|round|int }} {{ currency.name }}</p>
                     </div>
                     {% for item in range(0, get_total_lots(project.cost, currency.serbia.value, currency.kosovo.value, currency.montenegro.value, currency.serbia.value)) %}
-                        <img class="hiddenImg" id="serbia-img-{{ item }}" src="{{ currency.imageUrl }}"  height="20" width="20" />
+                        <img class="hiddenImg" id="serbia-img-{{ item }}" src="{{ currency.imageUrl }}"  height="40" width="40" />
                     {% endfor %}
                 </div>
             </div>
