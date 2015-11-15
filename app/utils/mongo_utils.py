@@ -20,6 +20,14 @@ class MongoUtils(object):
         cursor = self.mongo.db.projects.find({})
         return list(cursor)
 
+    def get_project(self, id):
+        doc = self.mongo.db.projects.find_one()
+        return doc
+
+    def get_currency(self, id):
+        doc = self.mongo.db.currencies.find_one()
+        return doc
+
     def get_expenses(self, region, dataset):
         cursor = self.mongo.db.dataset.find({
             'region.slug': region,
