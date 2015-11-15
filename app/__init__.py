@@ -4,11 +4,14 @@ import ConfigParser
 from flask.ext.pymongo import PyMongo
 from logging.handlers import RotatingFileHandler
 from app.utils.mongo_utils import MongoUtils
+from app.utils.lot_utils import LotUtils
 
 mongo = PyMongo()
 
 #Initialize mongo access point
 mongo_utils = MongoUtils(mongo)
+
+lot_utils = LotUtils()
 
 def create_app():
 
