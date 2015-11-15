@@ -10,7 +10,7 @@
 }
 
 .stack__item {
-	background: #fff;
+	background: #C5C9E6;
 	height: 100%;
 	width: 100%;
 	border-radius: 4px;
@@ -18,7 +18,9 @@
 	overflow: hidden;
 	position: absolute;
 	opacity: 0;
-	display: -webkit-flex;
+	display: 
+	
+	-webkit-flex;
 	display: flex;
 	-webkit-flex-direction: column;
 	flex-direction: column;
@@ -35,6 +37,7 @@
 	width: 100%;
 	display: block;
 	pointer-events: none;
+	background: #C5C9E6;
 }
 
 .controls {
