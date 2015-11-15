@@ -101,18 +101,16 @@ rect {
                 </p>
             </div>
         </div>
+            
         <div class="row">
-            <div class="col-md-12">
+            <div id="viz-kosovo" class="col-md-4">
             </div>
-            <div class="row">
-                <div id="viz-kosovo" class="col-md-4">
-                </div>
-                <div id="viz-montenegro" class="col-md-4">
-                </div>
-                <div id="viz-serbian" class="col-md-4">
-                </div>
+            <div id="viz-montenegro" class="col-md-4">
+            </div>
+            <div id="viz-serbian" class="col-md-4">
             </div>
         </div>
+
     </div>
 
 <div>
@@ -131,7 +129,7 @@ var imgNames = ["{{ currency.imageUrl  }}", "{{ currency.imageUrl  }}", "{{ curr
  * ! external params
  */
 
-
+var divContainers = ["viz-kosovo","viz-montenegro","viz-serbian"];
 var svgFrameNames = ["mainSvg", "mainSvg1", "mainSvg2"];
 var svgFrames = [];
 
@@ -160,12 +158,10 @@ var wBuffer = 8;
 var myIndex = d3.range(numPicto);
 
 
-svgFrameNames.forEach(function(la) {
-    var temp = d3.select("#visu")
-        .append("div")
-        .classed("col-md-4",true)
+divContainers.forEach(function(la, inde) {
+    var temp = d3.select("#"+la)
             .append("svg")
-                .attr("id", la)
+                .attr("id", svgFrameNames[inde])
                 .attr("class", "svgLane")
                 .attr("viewBox", "0 0 100 150");
 
