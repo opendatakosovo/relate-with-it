@@ -1,4 +1,5 @@
 import argparse
+import pprint
 
 from app import create_app
 
@@ -44,6 +45,70 @@ def get_lot_size(total):
 
     return 1
 
+def get_multiplier(project_cost, unit_value):
+    num_temp = project_cost / unit_value
+    
+    multiplier = 1
+    number_of_pictograms = 150;
+
+    if num_temp < 151:
+        multiplier = 1
+
+    if num_temp > (1000 * 1000 * 100):
+        temp_value = num_temp / (1000 * 1000 * 100)
+        if temp_value > 15:
+            num_temp = temp_value
+            multiplier = "100m"
+
+    if num_temp > (1000 * 1000 * 10):
+        temp_value = num_temp / (1000 * 1000 * 10)
+        if temp_value > 15:
+            num_temp = temp_value
+            multiplier = "10m"
+
+    if num_temp > (1000 * 1000 * 1):
+        temp_value = num_temp / (1000 * 1000 * 1)
+        if temp_value > 15:
+            num_temp = temp_value
+            multiplier = "1m"
+
+    if num_temp > (1000 * 100):
+        temp_value = num_temp / (1000 * 100)
+        if temp_value > 15:
+            num_temp = temp_value
+            multiplier = "100k"
+
+    if num_temp > (1000 * 10):
+        temp_value = num_temp / (1000 * 10)
+        if temp_value > 15:
+            num_temp = temp_value
+            multiplier = "10k"        
+
+    if num_temp > (1000 * 1):
+        temp_value = num_temp / (1000 * 1)
+        if temp_value > 15:
+            num_temp = temp_value
+            multiplier = "1k"        
+
+    if num_temp > (100):
+        temp_value = num_temp / (100)
+        if temp_value > 15:
+            num_temp = temp_value
+            multiplier = "100"
+
+    if num_temp > (10):
+        temp_value = num_temp / (10)
+        if temp_value > 15:
+            num_temp = temp_value
+            multiplier = "10"    
+
+    return {
+            'nbUnits': num_temp,
+            'multiplier': multiplier
+        }
+    #(num_temp, multiplier)
+
+
 def get_lot_amount(total):
     lot_size = get_lot_size(total)
     lot_amount = total / lot_size
@@ -52,10 +117,31 @@ def get_lot_amount(total):
 
 def get_median_lot_size(project_cost, value_ks, value_me, value_sr):
     multipliers = [project_cost / value_ks, project_cost / value_me, project_cost / value_sr]
+   
+    multiplier_tuples = [get_multiplier(project_cost, value_ks),get_multiplier(project_cost, value_me),get_multiplier(project_cost, value_sr)]
+
+    pp = pprint.PrettyPrinter(depth=6)
+    pp.pprint(multiplier_tuples)
+
     list.sort(multipliers)
 
     median_multiplier = multipliers[1]
     median_lot_size = get_lot_size(median_multiplier)
+
+    multipliers = {
+        'kosovo': {
+            'nbUnits': 3,
+            'multiplier': 12
+        },
+        'montenegro': {
+            'nbUnits': 3,
+            'multiplier': 12
+        },
+        'kosovo': {
+            'nbUnits': 3,
+            'multiplier': 12
+        },
+    }
 
     return median_lot_size
 
