@@ -21,14 +21,18 @@
                     $(this).addClass('animated slideInDown')
                         .delay(500 + 10 * delayIndKosovo++).queue(function() {
                             $(this).removeClass("hiddenImg").dequeue();
-                        });
 
+                            // If we don't add this, all the images disappear in Safari.
+                            // Certainly, there is a better way.
+                            $(this).removeClass("slideInDown");
+                        });
             })   
 
             $("img[id*=montenegro-img-]").each(function() {
                     $(this).addClass('animated slideInDown')
                         .delay(500 + 10 * delayIndSerbia++).queue(function() {
                             $(this).removeClass("hiddenImg").dequeue();
+                            $(this).removeClass("slideInDown");
                         });
             })   
 
@@ -36,10 +40,9 @@
                     $(this).addClass('animated slideInDown')
                         .delay(500 + 10 * delayIndMontenegro++).queue(function() {
                             $(this).removeClass("hiddenImg").dequeue();
+                            $(this).removeClass("slideInDown");
                         });
-            })   
-
-
+            })
         })
 
        
