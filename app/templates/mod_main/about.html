@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block style %}
+    <style>
+    em{
+        color: orange;
+    }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Who</h3>
+                <p>
+                    A collaboration between <a href="http://opendatakosovo.org/" target="_blank">Open Data Kosovo</a> (ODK) and <a href="http://crta.rs/" target="_blank">Center for Research, Transparency and Accountability</a> (CRTA).
+                    This is a <a href="https://raw.githubusercontent.com/opendatakosovo/relate-with-it/master/LICENSE" target="_blank">MIT Licensed</a> project, the source code available <a href="https://github.com/opendatakosovo/relate-with-it" target="_blank">here</a>.
+                    The used datasets are available <a href="https://github.com/opendatakosovo/relate-with-it/tree/master/importer/data" target="_blank">here</a> and were graciously opened by the <a href="ministryofdata" target="_blank">Ministry of Data</a> challenge.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h3>Idea</h3>
+                <p>
+                    What happens when you give someone a figure like "$16.93 billion (PPP, 2014 est.)"? Nothing happens, the average citizen cannot comprehend that sum. Instead of monetary value, let's convert expenditure costs into <strong><em>units of stuff</strong></em> that people can relate to.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Engagement</h3>
+                <p>
+                    Get people into conversation about government budgets by giving citizens the ability to appreciate the <strong><em>opportunity costs</em></strong> of government expenses. Compare the relative opportunity costs across different regions for a given government expenditure.
+                </p>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+        <div class="row" style="padding:50px;">
+            <div class="col-md-12" align="center">
+                <img src="https://entretodos.quiencompro.org/static/img/odk-logo.png" style="height:50px;" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="http://crtarsorg.github.io/vodite-racuna/img/logo-header.png" style="height:50px;"/>
+            </div>
+        </div>
+    </div>
+{% endblock %}
