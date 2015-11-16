@@ -10,6 +10,10 @@ def index():
     currencies = mongo_utils.get_currencies()
     return render_template('mod_main/index.html', projects=projects, currencies=currencies)
 
+@mod_main.route('/reactions', methods=['GET'])
+def reactions():
+    return render_template('mod_main/reactions.html')
+
 @mod_main.route('/about', methods=['GET'])
 def about():
     return render_template('mod_main/about.html')
