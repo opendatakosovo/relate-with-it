@@ -31,6 +31,7 @@
 .project-section{
 	background-color:#5cc2f1;
 	min-height: 100%;
+    height: 100%;
 	/* padding-top: 163px; */
 	/* position:relative; */
 	/* z-index: 999; */
@@ -38,6 +39,7 @@
 .currency-section{
 	background-color:#fff59d;
 	min-height: 100%;
+    height: 100%;
 	/* padding-top: 163px; */
 }
 .header{
@@ -49,6 +51,7 @@
 .hajde {
     background: linear-gradient(to right, #5cc2f1 0%,#5cc2f1 50%,#000000 50%,#fff59d 50%,#fff59d 100%);
     min-height: 100%;
+    height: 100%;
 }
 .btn-hajde-circle {
     width: 100px;
