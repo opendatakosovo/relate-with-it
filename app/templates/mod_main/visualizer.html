@@ -4,44 +4,55 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> -->
     <script>
 
-
-
-        var numberKosovo = {{ (project.cost / currency.kosovo.value)|round|int }};
-
-        var numberKosovo = 100;
-
         var delayIndKosovo = 0;
         var delayIndMontenegro = 0;
         var delayIndSerbia = 0;
 
+        var delay = 600;
+        var delayInterval = 10;
+
+        var isSafari = navigator.userAgent.indexOf("Safari") > -1
+
         $(document).ready(function() {
+
             $('[data-toggle="tooltip"]').tooltip();
+
             
             $("img[id*=kosovo-img-]").each(function() {
-                    $(this).addClass('animated slideInDown')
-                        .delay(500 + 10 * delayIndKosovo++).queue(function() {
-                            $(this).removeClass("hiddenImg").dequeue();
+                $(this).addClass('animated slideInDown')
+                    .delay(delay + delayInterval * delayIndKosovo++).queue(function() {
+                        $(this).attr('style', 'display:inline');
+                        $(this).removeClass("hiddenImg").dequeue();
 
-                            // If we don't add this, all the images disappear in Safari.
-                            // Certainly, there is a better way.
+                        // If we don't add this, there is a weird waterfall effect on Safari
+                        if(isSafari == true){
                             $(this).removeClass("slideInDown");
-                        });
+                        }
+                    });
             })   
 
             $("img[id*=montenegro-img-]").each(function() {
-                    $(this).addClass('animated slideInDown')
-                        .delay(500 + 10 * delayIndSerbia++).queue(function() {
-                            $(this).removeClass("hiddenImg").dequeue();
+                $(this).addClass('animated slideInDown')
+                    .delay(delay + delayInterval * delayIndSerbia++).queue(function() {
+                        $(this).attr('style', 'display:inline');
+                        $(this).removeClass("hiddenImg").dequeue();
+
+                        if(isSafari == true){
                             $(this).removeClass("slideInDown");
-                        });
+                        }
+                    });
             })   
 
             $("img[id*=serbia-img-]").each(function() {
-                    $(this).addClass('animated slideInDown')
-                        .delay(500 + 10 * delayIndMontenegro++).queue(function() {
-                            $(this).removeClass("hiddenImg").dequeue();
+                $(this).addClass('animated slideInDown')
+                    .delay(delay + delayInterval * delayIndMontenegro++).queue(function() {
+                        $(this).attr('style', 'display:inline');
+                        $(this).removeClass("hiddenImg").dequeue();
+
+                        if(isSafari == true){
                             $(this).removeClass("slideInDown");
-                        });
+                        }
+                    });
             })
         })
 
@@ -114,8 +125,8 @@
         <div class="row">
             <div class="col-md-12">
             </div>
-            <div class="row">
-                <div id="viz-kosovo" class="col-md-4" style="padding:15px;vertical-align:bottom;">
+            <div class="row" style="padding:15px;">
+                <div id="viz-kosovo-container" class="col-md-4">
                     <div class="text-center" style="padding-bottom:30px;">
                         <a href="#" data-toggle="tooltip" data-placement="top" title="1 {{ currency.name }} = {{ currency.kosovo.value|to_currency('EUR') }}">
                             <span class="country-header">Kosovo</span>
@@ -123,10 +134,10 @@
                         <p>{{ (project.cost / currency.kosovo.value)|round|int|to_num_format }} {{ currency.name }}</p>
                     </div>
                     {% for item in range(0, lots['kosovo']) %}
-                        <img class="hiddenImg" id="kosovo-img-{{ item }}" src="{{ currency.imageUrl }}"  height="40" width="40" />
+                        <img class="hiddenImg" style="display:none" id="kosovo-img-{{ item }}" src="{{ currency.imageUrl }}"  height="40" width="40" />
                     {% endfor %}
                 </div>
-                <div id="viz-montenegro" class="col-md-4" style="padding:15px;">
+                <div id="viz-montenegro-container" class="col-md-4">
                     <div class="text-center" style="padding-bottom:30px;">
                         <a href="#" data-toggle="tooltip" data-placement="top" title="1 {{ currency.name }} = {{ currency.montenegro.value|to_currency('EUR') }}">
                             <span class="country-header">Montenegro</span>
@@ -134,10 +145,10 @@
                         <p>{{ (project.cost / currency.montenegro.value)|round|int|to_num_format }} {{ currency.name }}</p>
                     </div>
                     {% for item in range(0, lots['montenegro']) %}
-                        <img class="hiddenImg" id="montenegro-img-{{ item }}" src="{{ currency.imageUrl }}"  height="40" width="40" />
+                        <img class="hiddenImg" style="display:none" id="montenegro-img-{{ item }}" src="{{ currency.imageUrl }}"  height="40" width="40" />
                     {% endfor %}
                 </div>
-                <div id="viz-serbian" class="col-md-4" style="padding:15px;">
+                <div id="viz-serbian-container" class="col-md-4">
                     <div class="text-center" style="padding-bottom:30px;">
                         <a href="#" data-toggle="tooltip" data-placement="top" title="1 {{ currency.name }} = {{ currency.serbia.value|to_currency('EUR') }}">
                             <span class="country-header">Serbia</span>
@@ -145,7 +156,7 @@
                         <p>{{ (project.cost / currency.serbia.value)|round|int|to_num_format }} {{ currency.name }}</p>
                     </div>
                     {% for item in range(0, lots['serbia']) %}
-                        <img class="hiddenImg" id="serbia-img-{{ item }}" src="{{ currency.imageUrl }}"  height="40" width="40" />
+                        <img class="hiddenImg" style="display:none" id="serbia-img-{{ item }}" src="{{ currency.imageUrl }}"  height="40" width="40" />
                     {% endfor %}
                 </div>
             </div>
