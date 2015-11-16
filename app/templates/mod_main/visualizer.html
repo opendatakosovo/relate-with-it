@@ -114,7 +114,7 @@
             <div class="row">
                 <div id="viz-kosovo" class="col-md-4" style="padding:15px;vertical-align:bottom;">
                     <div class="text-center" style="padding-bottom:30px;">
-                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="1 {{ currency.name }} = {{ currency.kosovo.value|to_currency('EUR') }}">
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="1 {{ currency.name }} = {{ currency.kosovo.value|to_currency('EUR') }}">
                             <span class="country-header">Kosovo</span>
                         </a>
                         <p>{{ (project.cost / currency.kosovo.value)|round|int|to_num_format }} {{ currency.name }}</p>
@@ -125,7 +125,7 @@
                 </div>
                 <div id="viz-montenegro" class="col-md-4" style="padding:15px;">
                     <div class="text-center" style="padding-bottom:30px;">
-                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="1 {{ currency.name }} = {{ currency.montenegro.value|to_currency('EUR') }}">
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="1 {{ currency.name }} = {{ currency.montenegro.value|to_currency('EUR') }}">
                             <span class="country-header">Montenegro</span>
                         </a>
                         <p>{{ (project.cost / currency.montenegro.value)|round|int|to_num_format }} {{ currency.name }}</p>
@@ -136,7 +136,7 @@
                 </div>
                 <div id="viz-serbian" class="col-md-4" style="padding:15px;">
                     <div class="text-center" style="padding-bottom:30px;">
-                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="1 {{ currency.name }} = {{ currency.serbia.value|to_currency('EUR') }}">
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="1 {{ currency.name }} = {{ currency.serbia.value|to_currency('EUR') }}">
                             <span class="country-header">Serbia</span>
                         </a>
                         <p>{{ (project.cost / currency.serbia.value)|round|int|to_num_format }} {{ currency.name }}</p>
